@@ -17,6 +17,8 @@ while (i <= j) {
 然后我们就可以得到此时的i - 1就是基准数位于数组的第几位。
 
 这时i - 1 左边全是小于基准的数，右边全是大于基准的数。这是我们将i - 1 和k进行比较，然后决定下一步该找那个区间，知道找到的数 i - 1 == k我么就返回此时的基准值，代码如下：
+
+> 2021 1 11 更：增加了大顶堆的找第k大的实现，同时改了一下快排代码：
 ```cpp
 //
 // Created by 86131 on 2021/1/10.
@@ -24,9 +26,11 @@ while (i <= j) {
 
 #include <iostream>
 #include <algorithm>
+#include <time.h>
+#include <cstdlib>
 using namespace std;
-#define maxn 6000000
-int n, a[maxn], k, t;
+#define maxn 60000000
+int n, a[maxn], k, t, b[maxn];
 int res;
 inline int read(){
     int x = 0, f = 1;
@@ -43,34 +47,52 @@ inline int read(){
     return x * f;
 }
 
-void quicksort(int l, int r) {
-    if (r < l) return;
+int quicksort(int l, int r) {
     int mid = (l + r) >> 1;
     int x = a[mid];
     int i = l, j = r;
     while (i <= j) {
         while (a[i] < x) i++;
         while (a[j] > x) j--;
-        if (i <= j) {
-            swap(a[i], a[j]);
-            i++, j--;
-        }
+        if (i <= j) swap(a[i++], a[j--]);
     }
-    if (i - 1 > k) quicksort(l, i - 1);
-    else if (i - 1 < k) quicksort(i, r);
-    else {
-        res = x; return;
+    if (k <= j) quicksort(l, j);
+    else if (k >= i) quicksort(i, r);
+    return a[k];
+}
+
+void siftup(int i) {
+    int t, flag = 0;
+    while (i * 2 <= k && !flag) {
+        t = a[i] < a[i * 2] ? i * 2 : i;
+        if (i * 2 + 1 <= k) t = a[t] < a[i * 2 + 1] ? i * 2 + 1 : t;
+        if (t != i) swap(a[i], a[t]), i = t;
+        else flag = 1;
     }
 }
 
+void constructheap() {
+    for (int i = k / 2; i >= 1; i--) siftup(i);
+}
+
 int main(void) {
-    t = read();
-    while (t--) {
-        n = read(); k = read();
-        for (int i = 1; i <= n; i++) a[i] = read();
-        quicksort(1, n);
-        cout << res << endl;
+    n = read(); k = read();
+    srand((unsigned)time(NULL));
+    for (int i = 1; i <= n; i++) a[i] = rand(), b[i] = a[i];
+
+    cout << quicksort(1, n) << endl;
+
+    for (int i = 1; i <= n; i++) a[i] = b[i];
+    constructheap();
+    for (int i = k + 1; i <= n; i++) {
+        if (a[1] > a[i]) {
+            a[1] = a[i];
+            siftup(1);
+        }
     }
+    cout << a[1] << endl;
+    sort(b + 1, b + 1 + n);
+    cout << b[k] << endl;
     return 0;
 }
 ```
