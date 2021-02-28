@@ -38,7 +38,44 @@ public:
     }
 };
 ```
+&nbsp;
+&nbsp;
+# 大数乘法
 
+令m和n分别表示num1和num2的长度，并且它们均不为0，则num1和num2的乘积长度为`m + n - 1`或`m + n`。证明如下：
+![image](https://user-images.githubusercontent.com/57765968/109413431-4ca22380-79e8-11eb-9498-3111c8e13043.png)
+所以就可以写出如下代码：
+```cpp
+class Solution {
+public:
+    string multiply(string num1, string num2) {
+        if (num1 == "0" || num2 == "0") return "0";
+        int length1 = num1.size(), length2 = num2.size();
+        vector<int> ans(length1 + length2);
+        
+        for (int i = length1 - 1; i >= 0; i--) {
+            int p = num1[i] - '0';
+            for (int j = length2 - 1; j >= 0; j--) {
+                int q = num2[j] - '0';
+                ans[i + j + 1] += p * q;
+            }
+        }
+        for (int i = length1 + length2 - 1; i >= 1; i--) {
+            ans[i - 1] += ans[i] / 10;
+            ans[i] %= 10;
+        }
+        string res = "";
+        int index = ans[0] == 0 ? 1 : 0;
+        while (index < length1 + length2) {
+            res.push_back(ans[index++] + '0');
+        }
+        return res;
+    }
+};
+```
+
+&nbsp;
+&nbsp;
 # 无重复最长字串
 
 要避免的坑：
