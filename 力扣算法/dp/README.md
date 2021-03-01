@@ -1,6 +1,7 @@
 # 最长公共子串
 题目连接：https://leetcode-cn.com/problems/maximum-length-of-repeated-subarray/submissions/
 
+思路：当作一个二维数组，通过dp[i][j]和dp[i - 1][j - 1]来找关系。
 ```cpp
 class Solution {
 public:
@@ -26,6 +27,8 @@ public:
 
 题目连接：https://leetcode-cn.com/problems/longest-increasing-subsequence/
 
+思路：最通常的一个思路就是dp[i] = max(dp[i], dp[j] + 1)(nums[i] > nums[j])这种方法时间复杂度为O(n * n)。
+
 普通遍历
 ```cpp
 class Solution {
@@ -44,6 +47,10 @@ public:
     }
 };
 ```
+&nbsp;
+&nbsp;
+
+维护一个递增数组，数组长度就是我们要找的最长的上升子序列。但是这个数组里面的数并不是正确的。注意`pos`的赋值
 
 二分 + 贪心
 ```java
