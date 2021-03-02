@@ -83,3 +83,23 @@ class Solution {
     }
 }
 ```
+&nbsp;
+&nbsp;
+# 连续子数组最大和
+
+题目：https://leetcode-cn.com/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof/
+
+如何`num[i - 1]`大于0，就加上，如果是0的话就不加啊！！
+
+```java
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int max_ = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            nums[i] += Math.max(nums[i - 1], 0);
+            max_ = Math.max(max_, nums[i]);
+        }
+        return max_;
+    }
+}
+```
