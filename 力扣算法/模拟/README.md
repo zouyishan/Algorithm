@@ -110,3 +110,35 @@ public:
     }
 };
 ```
+&nbsp;
+&nbsp;
+# K和数对的最大数目
+
+题目链接：https://leetcode-cn.com/problems/max-number-of-k-sum-pairs/
+
+先排序，然后双指针，然后思想就是如下代码：
+```java
+if (nums[l] + nums[r] == k) {
+    count++; l++; r--;
+} 
+else if (nums[l] + nums[r] > k) r--;
+else l++;
+```
+
+```java
+class Solution {
+    public int maxOperations(int[] nums, int k) {
+        Arrays.sort(nums);
+        int count = 0;
+        int l = 0, r = nums.length - 1;
+        while (l < r) {
+            if (nums[l] + nums[r] == k) {
+                count++; l++; r--;
+            } 
+            else if (nums[l] + nums[r] > k) r--;
+            else l++;
+        }
+        return count;
+    }
+}
+```
