@@ -93,3 +93,56 @@ class Solution {
     }
 }
 ```
+
+# 二叉树的右视图
+
+题目链接：https://leetcode-cn.com/problems/binary-tree-right-side-view/
+
+思路：
+* 可以通过dfs，先搜索右边的就是了！！
+* 可以通过bfs，层序遍历找最后一个元素就可以了！！！
+
+注意：
+* LinkedList本身就是双向链表。通过add在后面增加元素，通过remove删除最前面的元素。
+
+### DFS版
+```java
+class Solution {
+    List<Integer> res = new LinkedList<Integer>();
+    public List<Integer> rightSideView(TreeNode root) {
+        dfs(root, 0);
+        return res;
+    }
+    private void dfs(TreeNode treeNode, int level) {
+        if (treeNode == null) return;
+
+        if (level == res.size()) res.add(treeNode.val);
+
+        if (treeNode.right != null) dfs(treeNode.right, level + 1);
+        if (treeNode.left != null) dfs(treeNode.left, level + 1);
+        
+    }
+}
+```
+
+### BFS版
+```java
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        Queue<TreeNode> list = new LinkedList<TreeNode>();
+        List<Integer> res = new LinkedList<Integer>();
+        list.add(root);
+        while (!list.isEmpty()) {
+            int size = list.size();
+            for (int i = 1; i <= size; i++) {
+                TreeNode temp = list.poll();
+                if (temp == null) break;
+                if (i == size) res.add(temp.val);
+                if (temp.left != null) list.add(temp.left);
+                if (temp.right != null) list.add(temp.right); 
+            }
+        }
+        return res;
+    }
+}
+```
