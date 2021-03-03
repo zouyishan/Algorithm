@@ -102,6 +102,13 @@ class Solution {
 * 可以通过dfs，先搜索右边的就是了！！
 * 可以通过bfs，层序遍历找最后一个元素就可以了！！！
 
+聊几个api，
+* LinkedList.poll()出栈最后一个数，如果没有则是null
+* LinkedList.offer()添加在末尾
+* LinkedList.add()添加在末尾
+* LinkedList.remove()移除最后一个元素
+* LinkedList.get(size() - 1)获取最后一个元素
+
 注意：
 * LinkedList本身就是双向链表。通过add在后面增加元素，通过remove删除最前面的元素。
 
