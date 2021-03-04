@@ -38,6 +38,36 @@ public:
     }
 };
 ```
+
+### Java版
+
+注意使用`StringBuilder()`的api！！！
+
+```java
+class Solution {
+    public String addStrings(String num1, String num2) {
+        if (num1.length() < num2.length()) {
+            String temp = num1;
+            num1 = num2;
+            num2 = temp;
+        }
+        int carry = 0;
+        int length1 = num1.length(), length2 = num2.length();
+        int p = 0, q = 0;
+        StringBuilder sb = new StringBuilder("");
+        while (length1 > 0) {
+            p = num1.charAt(--length1) - '0'; q = 0;
+            if (length2 > 0) q = num2.charAt(--length2) - '0';
+            int sum = p + q + carry;
+            sb.append(sum % 10);
+            if (sum >= 10) carry = 1;
+            else carry = 0;
+        }
+        if (carry > 0) sb.append('1');
+        return sb.reverse().toString();
+    }
+}
+```
 &nbsp;
 &nbsp;
 # 大数乘法
