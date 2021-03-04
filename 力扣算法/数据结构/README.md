@@ -103,7 +103,7 @@ class Solution {
 * 可以通过bfs，层序遍历找最后一个元素就可以了！！！
 
 聊几个api，
-* LinkedList.poll()出栈最后一个数，如果没有则是null
+* LinkedList.poll()出栈第一个数，如果没有则是null
 * LinkedList.offer()添加在末尾
 * LinkedList.add()添加在末尾
 * LinkedList.remove()移除最后一个元素
@@ -153,3 +153,72 @@ class Solution {
     }
 }
 ```
+&nbsp;
+&nbsp;
+# 二叉树的锯齿形层次遍历
+
+题目链接：https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal/
+
+思路：注意使用双端队列！
+
+### BFS版本
+```java
+class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> res = new LinkedList<List<Integer>>();
+        if (root == null) {
+            return res;
+        }
+        LinkedList<TreeNode> list = new LinkedList<TreeNode>();
+        list.add(root);
+        boolean flag = true;
+        while (!list.isEmpty()) {
+            int size = list.size();
+            LinkedList<Integer> ans = new LinkedList<Integer>();
+            for (int i = 1; i <= size; i++) {
+                TreeNode treeNode = list.poll();
+                if (flag) {
+                    ans.add(treeNode.val);
+                } else {
+                    ans.addFirst(treeNode.val);
+                }
+                if (treeNode.left != null) list.add(treeNode.left);
+                if (treeNode.right != null) list.add(treeNode.right);
+            }
+            res.add(ans);
+            flag = !flag;
+        }
+        return res;
+    }
+}
+```
+
+### DFS
+```java
+class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> res = new LinkedList<List<Integer>>();
+        dfs(root, res, 0);
+        return res;
+    }
+    public void dfs(TreeNode cur, List<List<Integer>> ans, int level) {
+        if (cur == null) return;
+        // 是否new了
+        if (ans.size() <= level) {
+            List<Integer> list = new LinkedList<Integer>();
+            ans.add(list);
+        }
+
+        // 是奇数的话就反序插入
+        if (level % 2 != 0) {
+            ans.get(level).add(0, cur.val);
+        } else {
+            ans.get(level).add(cur.val);
+        }
+        dfs(cur.left, ans, level + 1);
+        dfs(cur.right, ans, level + 1);
+    }
+}
+```
+&nbsp;
+&nbsp;
