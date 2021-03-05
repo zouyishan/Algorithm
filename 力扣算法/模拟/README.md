@@ -165,3 +165,28 @@ class Solution {
     }
 }
 ```
+&nbsp;
+&nbsp;
+# 二进制中1的个数
+
+题目：https://leetcode-cn.com/problems/er-jin-zhi-zhong-1de-ge-shu-lcof/
+
+思路：
+```java
+count += (n & 1);
+n >>>= 1;
+```
+代码：
+```java
+public class Solution {
+    // you need to treat n as an unsigned value
+    public int hammingWeight(int n) {
+        int count = 0;
+        while (n != 0) {
+            count += (n & 1);
+            n >>>= 1;
+        }
+        return count;
+    }
+}
+```
