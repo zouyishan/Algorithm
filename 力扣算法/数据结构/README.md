@@ -294,3 +294,20 @@ class CQueue {
  * int param_2 = obj.deleteHead();
  */
 ```
+&nbsp;
+&nbsp;
+# 二叉树镜像
+题目：https://leetcode-cn.com/problems/er-cha-shu-de-jing-xiang-lcof/
+
+思路：递归，左边等于右边，右边等于左边，递归下去就能成！
+```java
+class Solution {
+    public TreeNode mirrorTree(TreeNode root) {
+        if (root == null) return null;
+        TreeNode temp = root.left;
+        root.left = mirrorTree(root.right);
+        root.right = mirrorTree(temp); 
+        return root;
+    }
+}
+```
