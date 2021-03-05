@@ -255,3 +255,42 @@ class Solution {
     }
 }
 ```
+
+# 两个栈实现队列
+
+链接：https://leetcode-cn.com/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof/
+
+思路：stack1用来push用来添加到队尾，stack2用来pop，用来移除最后一个元素。
+
+```java
+class CQueue {
+    private Stack<Integer> stack1 = null;
+    private Stack<Integer> stack2 = null;
+    public CQueue() {
+        stack1 = new Stack<Integer>();
+        stack2 = new Stack<Integer>();
+    }
+    
+    public void appendTail(int value) {
+        stack1.push(value);
+    }
+    
+    public int deleteHead() {
+        if (stack2.isEmpty()) {
+            while (!stack1.isEmpty()) {
+                stack2.push(stack1.pop());
+            }
+        }
+        if (stack2.isEmpty()) return -1;
+
+        else return stack2.pop();
+    }
+}
+
+/**
+ * Your CQueue object will be instantiated and called as such:
+ * CQueue obj = new CQueue();
+ * obj.appendTail(value);
+ * int param_2 = obj.deleteHead();
+ */
+```
