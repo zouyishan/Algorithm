@@ -311,3 +311,33 @@ class Solution {
     }
 }
 ```
+
+# 相交链表
+一道伤心的题
+
+链接：https://leetcode-cn.com/problems/intersection-of-two-linked-lists/
+
+```java
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) return null;
+        ListNode you = headA, she = headB;
+        while (you != she) {    // 若是有缘，你们早晚会相遇
+            you = you == null ? headB : you.next;   // 当你走到终点时，开始走她走过的路
+            she = she == null ? headA : she.next;   // 当她走到终点时，开始走你走过的路
+        }
+        // 如果你们喜欢彼此，请携手一起走完剩下的旅程（将下面这个 while 块取消注释）。
+        // 一路上，时而你踩着她的影子，时而她踩着你的影子。渐渐地，你变成了她，她也变
+        // 成了你。
+        /* while (she != null) {
+            you = she->next;
+            she = you->next;
+        } */
+        // 但终究，她为了选择正确的道路。就此返回
+        // 但你任然驻足在那个突然闯进你生活，给你带来快乐的，和她相遇的原地。
+        // 等着被清除。
+        you = null; // Help GC
+        return she;
+    }
+}
+```
