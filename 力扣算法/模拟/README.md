@@ -190,3 +190,17 @@ public class Solution {
     }
 }
 ```
+
+# 左旋字符串
+题目链接：https://leetcode-cn.com/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof/
+
+题目用意：纯粹为了记录一下substring这个api的使用，substring(index)，从这个开始到后面的所有，substring(begin, end)。很明了，要begin开始到end结束的字符串，不包括end！
+
+```java
+class Solution {
+    public String reverseLeftWords(String s, int n) {
+        StringBuilder sb = new StringBuilder();
+        return sb.append(s.substring(n, s.length())).append(s.substring(0, n)).toString();
+    }
+}
+```
