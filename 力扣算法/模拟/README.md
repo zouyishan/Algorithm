@@ -190,7 +190,8 @@ public class Solution {
     }
 }
 ```
-
+&nbsp;
+&nbsp;
 # 左旋字符串
 题目链接：https://leetcode-cn.com/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof/
 
@@ -204,3 +205,30 @@ class Solution {
     }
 }
 ```
+&nbsp;
+&nbsp;
+# 二叉搜索树第k大节点
+
+题目链接：https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/
+
+题目用意：加深一下中序遍历，活学活用！
+
+```java
+class Solution {
+    int res = 0, ans = 0;
+    public int kthLargest(TreeNode root, int k) {
+        res = k;
+        dfs(root);
+        return ans;
+    }
+    public void dfs(TreeNode node) {
+        if (node != null) {
+            dfs(node.right);
+            res--;
+            if (res == 0) ans = node.val;
+            dfs(node.left);
+        }
+    }
+}
+```
+# 
