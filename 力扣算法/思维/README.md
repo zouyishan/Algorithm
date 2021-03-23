@@ -1,0 +1,22 @@
+# 减绳子
+**思路**
+在一个绳子切成m段，对于相同m段，那么每段长度相同是乘积最高的
+对于m段，可以计算得知，当每段为3时乘积最大。
+所以将绳子的长度除3取余数，有0,1,2三种情况
+* 如果余0，那么正好三等分
+* 如果余1，那么13<22,故拿出之前一段3，将其拆分成2,2（见n=4时的情况）
+* 如果余2，那么直接*2
+神奇的数学知识又增加了
+链接：https://leetcode-cn.com/problems/jian-sheng-zi-lcof/solution/jian-zhi-14-ijian-sheng-zi-tan-xin-suan-5yfed/
+
+```java
+class Solution {
+    public int cuttingRope(int n) {
+        if(n <= 3) return n - 1;
+        int a = n / 3, b = n % 3;
+        if(b == 0) return (int)Math.pow(3, a);
+        if(b == 1) return (int)Math.pow(3, a - 1) * 4;
+        return (int)Math.pow(3, a) * 2;
+    }
+}
+```
