@@ -6,7 +6,9 @@
 * 如果余0，那么正好三等分
 * 如果余1，那么13<22,故拿出之前一段3，将其拆分成2,2（见n=4时的情况）
 * 如果余2，那么直接*2
+
 神奇的数学知识又增加了
+
 链接：https://leetcode-cn.com/problems/jian-sheng-zi-lcof/solution/jian-zhi-14-ijian-sheng-zi-tan-xin-suan-5yfed/
 
 ```java
