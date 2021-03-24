@@ -411,15 +411,17 @@ class Solution {
 }
 ```
 
-# 栈的压入、弹出序列
+# 栈的压入弹出序列
 
 题目链接：https://leetcode-cn.com/problems/zhan-de-ya-ru-dan-chu-xu-lie-lcof/
 
 思路：觉着最近算法越来越拉跨了,哎.............思路就是模拟pop和push吧，一个push，一个用while来pop就行了。
 
 **栈stack的常见api**：
-pop: 
-push：
+pop: 弹出栈顶元素
+
+push：压入一个元素
+
 peek：得到顶部的值，但是不会弹栈。
 ```java
 class Solution {
