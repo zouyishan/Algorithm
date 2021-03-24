@@ -1,3 +1,23 @@
+目录：
+
+[大数加法](#大数加法)
+
+[大数乘法](#大数乘法)
+
+[无重复最长字串](#无重复最长字串)
+
+[K和数对的最大数目](#K和数对的最大数目)
+
+[二进制中1的个数](#二进制中1的个数)
+
+[左旋字符串](#左旋字符串)
+
+[二叉搜索树第k大节点](#二叉搜索树第k大节点)
+
+[和为s的连续正数序列](#和为s的连续正数序列)
+
+[三数之和](#三数之和)
+
 # 大数加法：
 
 主要就是进位，单纯模拟：https://www.nowcoder.com/practice/11ae12e8c6fe48f883cad618c2e81475?tpId=117&tab=answerKey
@@ -257,6 +277,42 @@ class Solution {
             }
         }
         return res.toArray(new int[0][]);
+    }
+}
+```
+
+# 三数之和
+
+链接：https://leetcode-cn.com/problems/3sum/
+
+思路：开始的时候进行排序，然后从前到后枚举节点，开始遍历注意要排除重复数！！！
+
+```java
+class Solution {
+    public static List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> ans = new ArrayList();
+        int len = nums.length;
+        if(nums == null || len < 3) return ans;
+        Arrays.sort(nums); // 排序
+        for (int i = 0; i < len ; i++) {
+            if(nums[i] > 0) break; 
+            if(i > 0 && nums[i] == nums[i-1]) continue; 
+            int L = i+1;
+            int R = len-1;
+            while(L < R){
+                int sum = nums[i] + nums[L] + nums[R];
+                if(sum == 0){
+                    ans.add(Arrays.asList(nums[i],nums[L],nums[R]));
+                    while (L<R && nums[L] == nums[L+1]) L++; 
+                    while (L<R && nums[R] == nums[R-1]) R--; 
+                    L++;
+                    R--;
+                }
+                else if (sum < 0) L++;
+                else if (sum > 0) R--;
+            }
+        }        
+        return ans;
     }
 }
 ```
