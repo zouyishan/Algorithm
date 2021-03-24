@@ -1,3 +1,25 @@
+目录：
+
+[链表的两数相加](#链表的两数相加)
+
+[K个一组翻转链表](#K个一组翻转链表)
+
+[二叉树的右视图](#二叉树的右视图)
+
+[二叉树的锯齿形层次遍历](#二叉树的锯齿形层次遍历)
+
+[有序链表的合并](#有序链表的合并)
+
+[两个栈实现队列](#两个栈实现队列)
+
+[二叉树镜像](#二叉树镜像)
+
+[相交链表](#相交链表)
+
+[重建二叉树](#重建二叉树)
+
+[栈的压入、弹出序列](#栈的压入、弹出序列)
+
 # 链表的两数相加
 
 题目链接：https://leetcode-cn.com/problems/add-two-numbers/
@@ -41,7 +63,7 @@ class Solution {
 ```
 &nbsp;
 &nbsp;
-# * K个一组翻转链表
+# K个一组翻转链表
 
 链接：https://leetcode-cn.com/problems/reverse-nodes-in-k-group/
 
@@ -385,6 +407,33 @@ class Solution {
             indexMap.put(inorder[i], i);
         }
         return myBuildTree(preorder, inorder, 0, n - 1, 0, n - 1);
+    }
+}
+```
+
+# 栈的压入、弹出序列
+
+题目链接：https://leetcode-cn.com/problems/zhan-de-ya-ru-dan-chu-xu-lie-lcof/
+
+思路：觉着最近算法越来越拉跨了,哎.............思路就是模拟pop和push吧，一个push，一个用while来pop就行了。
+
+**栈stack的常见api**：
+pop: 
+push：
+peek：得到顶部的值，但是不会弹栈。
+```java
+class Solution {
+    public boolean validateStackSequences(int[] pushed, int[] popped) {
+        Stack<Integer> stack = new Stack<>();
+        int i = 0;
+        for(int num : pushed) {
+            stack.push(num); // num 入栈
+            while(!stack.isEmpty() && stack.peek() == popped[i]) { // 循环判断与出栈
+                stack.pop();
+                i++;
+            }
+        }
+        return stack.isEmpty();
     }
 }
 ```
