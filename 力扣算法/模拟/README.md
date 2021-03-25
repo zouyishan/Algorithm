@@ -18,6 +18,8 @@
 
 [三数之和](#三数之和)
 
+[子集](#子集)
+
 # 大数加法：
 
 主要就是进位，单纯模拟：https://www.nowcoder.com/practice/11ae12e8c6fe48f883cad618c2e81475?tpId=117&tab=answerKey
@@ -313,6 +315,39 @@ class Solution {
             }
         }        
         return ans;
+    }
+}
+```
+&nbsp;
+&nbsp;
+# 子集
+
+链接：https://leetcode-cn.com/problems/subsets/
+
+思路：下面这个图和明白，我们递归只用判断是否需要选，选的话递归下去，不选的话也是就递归下去。
+
+<img width="984" alt="1613704529-qfwaRN-E2C55933-0D86-4F8E-82B9-430682B5B099" src="https://user-images.githubusercontent.com/57765968/112477378-e5d91580-8dad-11eb-9200-8899fb380794.png">
+
+解释可能有点拉跨，代码看的明白 √：
+
+```java
+class Solution {
+    public static List<List<Integer>> res = null;
+    public static LinkedList<Integer> ans = new LinkedList<Integer>();
+    public List<List<Integer>> subsets(int[] nums) {
+        res = new LinkedList<List<Integer>>();
+        dfs(0, nums);
+        return res;
+    }
+    public void dfs(int cur, int[] nums) {
+       if (cur == nums.length) {
+           res.add(new LinkedList<Integer>(ans));
+           return;
+       }
+       dfs(cur + 1, nums); // 这里表示不选
+       ans.add(nums[cur]); // 这里表示选
+       dfs(cur + 1, nums); // 在将我们选的选择递归下去。
+       ans.removeLast();
     }
 }
 ```
