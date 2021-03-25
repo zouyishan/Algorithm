@@ -20,6 +20,10 @@
 
 [栈的压入弹出序列](#栈的压入弹出序列)
 
+[链表中倒数第k个节点](#链表中倒数第k个节点)
+
+[链表中是否存在环](#链表中是否存在环)
+
 # 链表的两数相加
 
 题目链接：https://leetcode-cn.com/problems/add-two-numbers/
@@ -438,4 +442,71 @@ class Solution {
         return stack.isEmpty();
     }
 }
+```
+
+# 链表中是否存在环
+链接：https://leetcode-cn.com/problems/linked-list-cycle/
+
+思路：快慢指针
+
+```java
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null) {
+            return false;
+        }
+        ListNode slow = head;
+        ListNode fast = head.next;
+        while (slow != fast) {
+            if (fast == null || fast.next == null) {
+                return false;
+            }
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return true;
+    }
+}
+```
+&nbsp;
+&nbsp;
+# 链表中倒数第k个节点
+链接：https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/
+
+思路：我以前用的是直接遍历，然后这肯定被面试官乱锤，肯定要用快慢指针的！！！！
+
+暴力：
+
+```java
+class Solution {
+    public ListNode getKthFromEnd(ListNode head, int k) {
+        int i = 0;
+        ListNode res = head;
+        while (head != null) {
+            head = head.next; i++;
+        }
+        int z = i - k;
+        for (int m = 1; m <= z; m++) {
+            res = res.next;
+        }
+        return res;
+    }
+}
+```
+
+正确：
+
+```java
+class Solution {
+    public ListNode getKthFromEnd(ListNode head, int k) {
+        ListNode former = head, latter = head;
+        for(int i = 0; i < k; i++)
+            former = former.next;
+        while(former != null) {
+            former = former.next;
+            latter = latter.next;
+        }
+        return latter;
+    }
+} 
 ```
