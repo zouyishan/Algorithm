@@ -24,6 +24,8 @@
 
 [链表中是否存在环](#链表中是否存在环)
 
+[LRU](#LRU)
+
 # 链表的两数相加
 
 题目链接：https://leetcode-cn.com/problems/add-two-numbers/
@@ -509,4 +511,49 @@ class Solution {
         return latter;
     }
 } 
+```
+
+# LRU
+
+经典算法，题目链接：https://leetcode-cn.com/problems/lru-cache-lcci/
+
+思路：通过hashmap维护键值对，list维护最短时间的最新值
+
+```java
+class LRUCache {
+    public int capacity;
+    public HashMap map = null;
+    public LinkedList list = null;
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        map = new HashMap<Integer, Integer>();
+        list = new LinkedList<Integer>();
+    }
+    
+    public int get(int key) {
+        if (map.containsKey(key)) {
+            list.remove((Integer)key);
+            list.addFirst(key);
+            return (int)map.get(key);
+        }
+        return -1;
+    }
+    
+    public void put(int key, int value) {
+        if (map.containsKey(key)) {
+            list.remove((Integer)key);
+            list.addFirst(key);
+            map.put(key, value);
+            return;
+        }
+        if (list.size() == capacity) {
+            map.remove(list.removeLast());
+            map.put(key, value);
+            list.addFirst((Integer)key);
+        } else {
+            map.put(key, value);
+            list.addFirst((Integer)key);
+        }
+    }
+}
 ```
