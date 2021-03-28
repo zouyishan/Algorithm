@@ -1,4 +1,5 @@
 目录：
+* [根据身高重建队列](#根据身高重建队列)
 * [找到数组中消失的数字](#找到数组中消失的数字)
 * [大数加法](#大数加法)
 * [大数乘法](#大数乘法)
@@ -11,6 +12,30 @@
 * [三数之和](#三数之和)
 * [子集](#子集)
 * [括号生成](#括号生成)
+
+# 根据身高重建队列
+题目链接；https://leetcode-cn.com/problems/queue-reconstruction-by-height/
+
+思路：先对升高进行降序排列，然后再根据第二个参数所占用的位置来排列。这样就能成
+```java
+class Solution {
+    public int[][] reconstructQueue(int[][] people) {
+        Arrays.sort(people, new Comparator<int[]>() {
+            public int compare(int[] person1, int[]person2) {
+                if (person1[0] == person2[0]) {
+                    return person1[1] - person2[1];
+                }
+                return person2[0] - person1[0];
+            }
+        });
+        List<int[]> res = new ArrayList<int[]>();
+        for (int[] person : people) {
+            res.add(person[1], person);
+        }
+        return res.toArray(new int[res.size()][]);
+    }
+}
+```
 
 # 括号生成
 题目链接：https://leetcode-cn.com/problems/generate-parentheses/
