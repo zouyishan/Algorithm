@@ -1,4 +1,5 @@
 目录(善用ctrl + f)：
+* [前k个高频元素](#前k个高频元素)
 * [最近公共祖先](#最近公共祖先)
 * [中序遍历](#中序遍历)
 * [反转链表](#反转链表)
@@ -18,6 +19,37 @@
 * [链表中倒数第k个节点](#链表中倒数第k个节点)
 * [链表中是否存在环](#链表中是否存在环)
 * [LRU](#LRU)
+&nbsp;
+# 前k个高频元素
+题目链接：https://leetcode-cn.com/problems/top-k-frequent-elements/
+
+思路：通过优先队列和哈希表来做整理,了解一下使用
+```java
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+        for (int num : nums) {
+            if (map.containsKey(num)) {
+                map.put(num, map.get(num) + 1);
+            } else map.put(num, 1);
+        }
+        PriorityQueue<Integer> pq = new PriorityQueue<Integer>((v1, v2) -> map.get(v1) - map.get(v2));
+        for (Integer a : map.keySet()) {
+            if (pq.size() < k) pq.add(a);
+            else if (map.get(a) > map.get(pq.peek())) {
+                pq.remove();
+                pq.add(a);
+            }
+        }
+        int[] res = new int[k];
+        int count = 0;
+        while (!pq.isEmpty()) {
+            res[count++] = pq.remove();
+        }
+        return res;
+    }
+}
+```
 &nbsp;
 # 最近公共祖先
 题目链接：https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/
