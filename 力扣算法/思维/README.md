@@ -1,3 +1,24 @@
+目录：
+* [减绳子](#减绳子)
+* [盛水最多的容器](#盛水最多的容器)
+
+# 盛水最多的容器
+题目链接：https://leetcode-cn.com/problems/container-with-most-water/
+
+思路：双指针。
+```java
+class Solution {
+    public int maxArea(int[] height) {
+        int res = -1, pre = 0, end = height.length - 1;
+        while (pre < end) {
+            res = Math.max(res, (end - pre) * Math.min(height[pre], height[end]));
+            if (height[end] >= height[pre]) pre++;
+            else end--;
+        }
+        return res;
+    }
+}
+```
 # 减绳子
 **思路**
 在一个绳子切成m段，对于相同m段，那么每段长度相同是乘积最高的
