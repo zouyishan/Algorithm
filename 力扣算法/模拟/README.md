@@ -10,6 +10,31 @@
 * [和为s的连续正数序列](#和为s的连续正数序列)
 * [三数之和](#三数之和)
 * [子集](#子集)
+* [括号生成](#括号生成)
+
+# 括号生成
+题目链接：https://leetcode-cn.com/problems/generate-parentheses/
+
+思路：就是基本的暴搜啊，和前面的那题，子集有异曲同工之妙啊！！！要加深对这个的理解了~！！！
+```java
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        LinkedList<String> res = new LinkedList<String>();
+        dfs("", 0, 0, n, res);
+        return res;
+    }
+    public void dfs(String cur, int left, int right, int total, LinkedList<String> res) {
+        if (left == total && right == total) {
+            res.add(cur);
+            return;
+        }
+        if (left < right) return;
+        if (left < total) dfs(cur + "(", left + 1, right, total, res);
+        if (right < total) dfs(cur + ")", left, right + 1, total, res);
+    }
+}
+```
+
 # 找到数组中消失的数字
 题目链接： https://leetcode-cn.com/problems/find-all-numbers-disappeared-in-an-array/
 
