@@ -1,6 +1,7 @@
 目录：
 * [反转链表](#反转链表)
 * [合并二叉树](#合并二叉树)
+* [二叉树最大深度](#二叉树最大深度)
 * [链表的两数相加](#链表的两数相加)
 * [K个一组翻转链表](#K个一组翻转链表)
 * [二叉树的右视图](#二叉树的右视图)
@@ -53,7 +54,22 @@ class Solution {
     }
 }
 ```
+&nbsp;
+# 二叉树最大深度
+题目链接：https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/
 
+目的：更好理解递归，尽量让自己的写法更加优雅
+```java
+class Solution {
+    public int maxDepth(TreeNode root) {
+        if (root == null) return 0;
+        int left = maxDepth(root.left);
+        int right = maxDepth(root.right);
+        return Math.max(left, right) + 1;
+    }
+}
+```
+&nbsp;
 # 链表的两数相加
 
 题目链接：https://leetcode-cn.com/problems/add-two-numbers/
