@@ -1,4 +1,5 @@
 目录(善用ctrl + f)：
+* [最近公共祖先](#最近公共祖先)
 * [中序遍历](#中序遍历)
 * [反转链表](#反转链表)
 * [合并二叉树](#合并二叉树)
@@ -18,6 +19,23 @@
 * [链表中是否存在环](#链表中是否存在环)
 * [LRU](#LRU)
 &nbsp;
+# 最近公共祖先
+题目链接：https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/
+
+思路：递归求解，太妙了！！！！！
+```java
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(root == null || root == p || root == q) return root;
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if(left == null && right == null) return null;
+        if(left == null) return right;
+        if(right == null) return left;
+        return root;
+    }
+}
+```
 # 中序遍历
 题目链接：https://leetcode-cn.com/problems/binary-tree-inorder-traversal/
 
