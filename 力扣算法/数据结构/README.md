@@ -2,6 +2,7 @@
 * [反转链表](#反转链表)
 * [合并二叉树](#合并二叉树)
 * [二叉树最大深度](#二叉树最大深度)
+* [树的直径](#树的直径)
 * [链表的两数相加](#链表的两数相加)
 * [K个一组翻转链表](#K个一组翻转链表)
 * [二叉树的右视图](#二叉树的右视图)
@@ -70,6 +71,27 @@ class Solution {
 }
 ```
 &nbsp;
+# 树的直径
+题目链接：https://leetcode-cn.com/problems/diameter-of-binary-tree/
+
+思路：恶心至极啊！！！我们不能只是依赖通过根节点的路径。只能在dfs里面下文章。L 和 R 分别是左子树的最大值和右子树的最大值。直接相加就可以得到最长的直径。
+```java
+class Solution {
+    int ans;
+    public int diameterOfBinaryTree(TreeNode root) {
+        ans = 0;
+        dfs(root);
+        return ans;
+    }
+    public int dfs(TreeNode root) {
+        if (root == null) return 0;
+        int a = dfs(root.left);
+        int b = dfs(root.right);
+        ans = Math.max(ans, a + b);
+        return Math.max(a, b) + 1;
+    }
+}
+```
 # 链表的两数相加
 
 题目链接：https://leetcode-cn.com/problems/add-two-numbers/
