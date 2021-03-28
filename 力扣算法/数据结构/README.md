@@ -1,4 +1,5 @@
-目录：
+目录(善用ctrl + f)：
+* [中序遍历](#中序遍历)
 * [反转链表](#反转链表)
 * [合并二叉树](#合并二叉树)
 * [二叉树最大深度](#二叉树最大深度)
@@ -16,8 +17,32 @@
 * [链表中倒数第k个节点](#链表中倒数第k个节点)
 * [链表中是否存在环](#链表中是否存在环)
 * [LRU](#LRU)
-
 &nbsp;
+# 中序遍历
+题目链接：https://leetcode-cn.com/problems/binary-tree-inorder-traversal/
+
+思路：我们用非递归的方法来做
+```java
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res = new LinkedList<Integer>();
+        LinkedList<TreeNode> ans = new LinkedList<TreeNode>();
+        TreeNode k = root;
+        while (!ans.isEmpty() || k != null) {
+            if (k != null) {
+                ans.add(k);
+                k = k.left;
+            } else {
+                TreeNode temp = ans.getLast();
+                ans.removeLast();
+                res.add(temp.val);
+                k = temp.right;
+            }
+        }
+        return res;
+    }
+}
+```
 # 反转链表
 题目链接：https://leetcode-cn.com/problems/reverse-linked-list/
 
