@@ -1,8 +1,30 @@
 目录：
+* [和为K的子数组](#和为k的子数组)
 * [减绳子](#减绳子)
 * [盛水最多的容器](#盛水最多的容器)
 * [数组中第k大](#数组中第k大)
 &nbsp;
+# 和为k的子数组
+链接：https://leetcode-cn.com/problems/subarray-sum-equals-k/
+
+思路：通过用HashMap计算pre(前缀和) - k的个数得出有多少个符合的子数组。秒..........
+```java
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+        int count = 0, pre = 0;
+        map.put(0, 1);
+        for (int num : nums) {
+            pre += num;
+            if (map.containsKey(pre - k)) {
+                count += map.get(pre - k);
+            }
+            map.put(pre, map.getOrDefault(pre, 0) + 1);
+        }
+        return count;
+    }
+}
+```
 # 数组中第k大
 题目链接：https://leetcode-cn.com/problems/kth-largest-element-in-an-array/
 
