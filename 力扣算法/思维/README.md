@@ -1,6 +1,37 @@
 目录：
 * [减绳子](#减绳子)
 * [盛水最多的容器](#盛水最多的容器)
+* [数组中第k大](#数组中第k大)
+&nbsp;
+# 数组中第k大
+题目链接：https://leetcode-cn.com/problems/kth-largest-element-in-an-array/
+
+注意的细节：这个第k大是从1开始，我们要将k的值减一才行。此外注意细节就行了~~~~
+```java
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        return search(nums, 0, nums.length - 1, k - 1);
+    }
+    public int search(int[] nums, int l, int r, int k) {
+        int mid = (l + r) >> 1;
+        int x = nums[mid];
+        int i = l, j = r;
+        while (i <= j) {
+            while (nums[i] > x) i++;
+            while (nums[j] < x) j--;
+            if (i <= j) {
+                int temp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp;
+                i++; j--;
+            }
+        }
+        if (j >= k) search(nums, l, j, k);
+        else if (i <= k) search(nums, i, r, k);
+        return nums[k];
+    }
+}
+```
 
 # 盛水最多的容器
 题目链接：https://leetcode-cn.com/problems/container-with-most-water/
