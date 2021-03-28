@@ -1,5 +1,6 @@
 目录：
 * [反转链表](#反转链表)
+* [合并二叉树](#合并二叉树)
 * [链表的两数相加](#链表的两数相加)
 * [K个一组翻转链表](#K个一组翻转链表)
 * [二叉树的右视图](#二叉树的右视图)
@@ -14,6 +15,7 @@
 * [链表中是否存在环](#链表中是否存在环)
 * [LRU](#LRU)
 
+&nbsp;
 # 反转链表
 题目链接：https://leetcode-cn.com/problems/reverse-linked-list/
 
@@ -31,6 +33,23 @@ class Solution {
             cur = next;
         }
         return pre;
+    }
+}
+```
+&nbsp;
+# 合并二叉树
+题目链接：https://leetcode-cn.com/problems/merge-two-binary-trees/
+
+思路：递归啊！！！递归啊！！！ 为啥当时写的能这么臭啊！！！！难
+```java
+class Solution {
+    public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
+        if (root1 == null) return root2;
+        if (root2 == null) return root1;
+        TreeNode res =  new TreeNode(root1.val + root2.val);
+        res.left = mergeTrees(root1.left, root2.left);
+        res.right = mergeTrees(root1.right, root2.right);
+        return res;
     }
 }
 ```
