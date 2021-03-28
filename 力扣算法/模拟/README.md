@@ -1,25 +1,36 @@
 目录：
+* [找到数组中消失的数字](#找到数组中消失的数字)
+* [大数加法](#大数加法)
+* [大数乘法](#大数乘法)
+* [无重复最长字串](#无重复最长字串)
+* [K和数对的最大数目](#K和数对的最大数目)
+* [二进制中1的个数](#二进制中1的个数)
+* [左旋字符串](#左旋字符串)
+* [二叉搜索树第k大节点](#二叉搜索树第k大节点)
+* [和为s的连续正数序列](#和为s的连续正数序列)
+* [三数之和](#三数之和)
+* [子集](#子集)
+# 找到数组中消失的数字
+题目链接： https://leetcode-cn.com/problems/find-all-numbers-disappeared-in-an-array/
 
-[大数加法](#大数加法)
-
-[大数乘法](#大数乘法)
-
-[无重复最长字串](#无重复最长字串)
-
-[K和数对的最大数目](#K和数对的最大数目)
-
-[二进制中1的个数](#二进制中1的个数)
-
-[左旋字符串](#左旋字符串)
-
-[二叉搜索树第k大节点](#二叉搜索树第k大节点)
-
-[和为s的连续正数序列](#和为s的连续正数序列)
-
-[三数之和](#三数之和)
-
-[子集](#子集)
-
+思路：很精妙，我在有的数字上面加上length，也就是说数组中存在的数最后一定是大于length的，没有的就肯定不会大于
+```java
+class Solution {
+    public List<Integer> findDisappearedNumbers(int[] nums) {
+        int length = nums.length;
+        for (int num : nums) {
+            int temp = (num - 1) % length;
+            nums[temp] += length;
+        }
+        List<Integer> res = new LinkedList<Integer>();
+        for (int i = 0; i < length; i++) {
+            if (nums[i] <= length) res.add(i + 1);
+        }
+        return res;
+    }
+}
+```
+&nbsp;
 # 大数加法：
 
 主要就是进位，单纯模拟：https://www.nowcoder.com/practice/11ae12e8c6fe48f883cad618c2e81475?tpId=117&tab=answerKey
