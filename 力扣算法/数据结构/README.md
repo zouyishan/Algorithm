@@ -1,5 +1,6 @@
 目录(善用ctrl + f)：
 * [环形链表2](#环形链表2)
+* [环形链表](#环形链表)
 * [前k个高频元素](#前k个高频元素)
 * [最近公共祖先](#最近公共祖先)
 * [中序遍历](#中序遍历)
@@ -21,6 +22,24 @@
 * [链表中是否存在环](#链表中是否存在环)
 * [LRU](#LRU)
 &nbsp;
+# 环形链表
+题目链接：https://leetcode-cn.com/problems/linked-list-cycle/
+
+思路：快慢指针啦！！！
+```java
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null) return false;
+        ListNode slow = head, fast = head;
+        while (true) {
+            if (fast == null || fast.next == null) return false;
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) return true;
+        }
+    }
+}
+```
 # 环形链表2
 题目链接；https://leetcode-cn.com/problems/linked-list-cycle-ii/
 
