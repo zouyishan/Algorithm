@@ -1,4 +1,5 @@
 目录：
+* [岛屿数量](#岛屿数量)
 * [每日温度](#每日温度)
 * [根据身高重建队列](#根据身高重建队列)
 * [找到数组中消失的数字](#找到数组中消失的数字)
@@ -13,6 +14,43 @@
 * [三数之和](#三数之和)
 * [子集](#子集)
 * [括号生成](#括号生成)
+
+# 岛屿数量
+题目链接：https://leetcode-cn.com/problems/number-of-islands/
+
+思路：dfs深搜进去，然后出来就行了！这题也写下来主要是防止忘了...............
+```java
+class Solution {
+    int p, q;
+    public int numIslands(char[][] grid) {
+        int[][] book = new int[grid.length][grid[0].length];
+        p = grid.length; q = grid[0].length;
+        int count = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                if (book[i][j] == 0 && grid[i][j] == '1') {
+                    dfs(book, i, j, grid);
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+    public void dfs(int[][] book, int x, int y, char[][] grid) {
+        book[x][y] = 1;
+        int[][] next = new int[][]{{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+        int tx = 0, ty = 0;
+        for (int i = 0; i <= 3; i++) {
+            tx = next[i][0] + x;
+            ty = next[i][1] + y;
+            if (tx < 0 || ty < 0 || tx >= p || ty >= q) continue;
+            if (book[tx][ty] == 0 && grid[tx][ty] == '1') {
+                dfs(book, tx, ty, grid);
+            }
+        }
+    }
+}
+```
 
 # 每日温度
 题目链接：https://leetcode-cn.com/problems/daily-temperatures/
