@@ -1,4 +1,5 @@
 目录：
+* [每日温度](#每日温度)
 * [根据身高重建队列](#根据身高重建队列)
 * [找到数组中消失的数字](#找到数组中消失的数字)
 * [大数加法](#大数加法)
@@ -12,6 +13,31 @@
 * [三数之和](#三数之和)
 * [子集](#子集)
 * [括号生成](#括号生成)
+
+# 每日温度
+题目链接：https://leetcode-cn.com/problems/daily-temperatures/
+
+思路：差分暴力！！！！！！不过好像有那个单调栈的最优解，但是。我不会啊啊啊啊啊啊=_=难
+```java
+class Solution {
+    public int[] dailyTemperatures(int[] T) {
+        int[] res = new int[T.length];
+        int[] ans = new int[T.length];
+        if (T.length == 1) return res;
+        for (int i = 1; i < T.length; i++) res[i] = T[i] - T[i - 1];
+        for (int i = 0; i < T.length; i++) {
+            int z = 0;
+            for (int j = i + 1; j < T.length; j++) {
+                z += res[j];
+                if (z > 0) {
+                    ans[i] = j - i; break;
+                }
+            }
+        }
+        return ans;
+    }
+}
+```
 
 # 根据身高重建队列
 题目链接；https://leetcode-cn.com/problems/queue-reconstruction-by-height/
