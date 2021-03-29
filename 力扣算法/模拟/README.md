@@ -1,4 +1,5 @@
 目录：
+* [目标和](#目标和)
 * [合并区间](#合并区间)
 * [岛屿数量](#岛屿数量)
 * [每日温度](#每日温度)
@@ -15,6 +16,30 @@
 * [三数之和](#三数之和)
 * [子集](#子集)
 * [括号生成](#括号生成)
+
+# 目标和
+题目链接：https://leetcode-cn.com/problems/target-sum/
+
+思路：暴搜，永远嘀神！！！！！，和子集和括号生成特别像
+```java
+class Solution {
+    int count = 0;
+    public int findTargetSumWays(int[] nums, int S) {
+        dfs(nums, S, 0, 0);
+        return count;
+    }
+    public void dfs(int[] nums, int S, int i, int sum) {
+        if (sum == S && i == nums.length) {
+            count++;
+            return;
+        }
+        if (i < nums.length) {
+            dfs(nums, S, i + 1, sum + nums[i]);
+            dfs(nums, S, i + 1, sum - nums[i]);
+        }
+    }
+}
+```
 
 # 合并区间
 题目链接：https://leetcode-cn.com/problems/merge-intervals/
