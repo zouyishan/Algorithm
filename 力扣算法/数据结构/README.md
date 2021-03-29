@@ -1,4 +1,5 @@
 目录(善用ctrl + f)：
+* [环形链表2](#环形链表2)
 * [前k个高频元素](#前k个高频元素)
 * [最近公共祖先](#最近公共祖先)
 * [中序遍历](#中序遍历)
@@ -20,6 +21,31 @@
 * [链表中是否存在环](#链表中是否存在环)
 * [LRU](#LRU)
 &nbsp;
+# 环形链表2
+题目链接；https://leetcode-cn.com/problems/linked-list-cycle-ii/
+
+思路：当快指针和慢指针相遇了以后，然后再移动慢指针和头指针，相遇的那个点就是入口点了！！！！
+```java
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+        ListNode slow = head, quick = head;
+        while (quick != null) {
+            slow = slow.next;
+            if (quick.next != null && quick != null) {
+                quick = quick.next.next;
+            } else return null;
+            if (slow == quick) {
+                while (head != slow) {
+                    head = head.next;
+                    slow = slow.next;
+                }
+                return slow;
+            }
+        }
+        return null;
+    }
+}
+```
 # 前k个高频元素
 题目链接：https://leetcode-cn.com/problems/top-k-frequent-elements/
 
