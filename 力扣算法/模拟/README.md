@@ -1,4 +1,5 @@
 目录：
+* [合并区间](#合并区间)
 * [岛屿数量](#岛屿数量)
 * [每日温度](#每日温度)
 * [根据身高重建队列](#根据身高重建队列)
@@ -15,6 +16,30 @@
 * [子集](#子集)
 * [括号生成](#括号生成)
 
+# 合并区间
+题目链接：https://leetcode-cn.com/problems/merge-intervals/
+
+思路：先对第一个进行排序，和拿到根据升高重建队列那题有点像。然后就挨个遍历了
+```java
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        if (intervals.length == 1) return intervals;
+        Arrays.sort(intervals, (int[] a, int[] b) -> {
+            return a[0] - b[0];
+        });
+        ArrayList<int[]> res = new ArrayList<int[]>();
+        res.add(new int[]{intervals[0][0], intervals[0][1]});
+        for (int i = 1; i < intervals.length; i++) {
+            if (intervals[i][0] > res.get(res.size() - 1)[1]) {
+                res.add(new int[]{intervals[i][0], intervals[i][1]});
+            } else {
+                res.get(res.size() - 1)[1] = Math.max(intervals[i][1], res.get(res.size() - 1)[1]);
+            }
+        }
+        return res.toArray(new int[res.size()][]);
+    }
+}
+```
 # 岛屿数量
 题目链接：https://leetcode-cn.com/problems/number-of-islands/
 
