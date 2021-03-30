@@ -3,6 +3,27 @@
 * [最长公共字串](#最长公共字串)
 * [最长递增子序列](#最长递增子序列)
 * [连续子数组最大和](#连续子数组最大和)
+* [最小路径和](#最小路径和)
+
+# 最小路径和
+题目链接：https://leetcode-cn.com/problems/minimum-path-sum/
+
+思路：最简单的dp啊！！！就这难度？？？？再给我来难点的！！！！
+```java
+class Solution {
+    public int minPathSum(int[][] grid) {
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (i == 0 && j == 0) continue;
+                else if (i == 0) grid[i][j] += grid[i][j - 1];
+                else if (j == 0) grid[i][j] += grid[i - 1][j];
+                else grid[i][j] += Math.min(grid[i - 1][j], grid[i][j - 1]);
+            }
+        }
+        return grid[grid.length - 1][grid[0].length - 1];
+    }
+}
+```
 
 # 完全平方数
 题目链接：https://leetcode-cn.com/problems/perfect-squares/
