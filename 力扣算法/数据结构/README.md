@@ -1,4 +1,5 @@
 目录(善用ctrl + f)：
+* [二叉搜索树的后序遍历](#二叉搜索树的后序遍历)
 * [环形链表2](#环形链表2)
 * [环形链表](#环形链表)
 * [前k个高频元素](#前k个高频元素)
@@ -22,6 +23,25 @@
 * [链表中是否存在环](#链表中是否存在环)
 * [LRU](#LRU)
 &nbsp;
+# 二叉搜索树的后序遍历
+题目链接：https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-hou-xu-bian-li-xu-lie-lcof/
+
+思路：通过后续遍历和二叉搜索树的性质来做，太秒了！！！
+```java
+class Solution {
+    public boolean verifyPostorder(int[] postorder) {
+        return recur(postorder, 0, postorder.length - 1);
+    }
+    boolean recur(int[] postorder, int i, int j) {
+        if(i >= j) return true;
+        int p = i;
+        while(postorder[p] < postorder[j]) p++;
+        int m = p;
+        while(postorder[p] > postorder[j]) p++;
+        return p == j && recur(postorder, i, m - 1) && recur(postorder, m, j - 1);
+    }
+}
+```
 # 环形链表
 题目链接：https://leetcode-cn.com/problems/linked-list-cycle/
 
