@@ -1,4 +1,5 @@
 目录：
+* [ip复原](#ip复原)
 * [螺旋矩阵](#螺旋矩阵)
 * [目标和](#目标和)
 * [合并区间](#合并区间)
@@ -18,6 +19,44 @@
 * [子集](#子集)
 * [括号生成](#括号生成)
 
+# ip复原
+题目链接；
+
+```java
+class Solution {
+    public List<String> restoreIpAddresses(String s) {
+        List<String> res = new ArrayList();
+        if(s == null || s.length() < 4 || s.length() > 13){
+            return res;
+        }
+        process(res,s,"",0,0);
+        return res;
+    }
+    public void process(List<String> res,String s,String path,int index,int num){
+        if(index > s.length() || num > 4){
+            return;
+        }
+        if(index == s.length() && num == 4){
+            res.add(path.substring(0,path.length() - 1));
+            return;
+        }
+        for(int i = index; i < s.length() && i < index + 3; i++){
+            int length = i - index + 1;
+            String str = s.substring(index,i + 1);
+            if(length == 1) {
+                process(res,s,path+str+".",index+1,num + 1);
+            } else if(length == 2) {
+                if(!str.startsWith("0")){
+                    process(res,s,path+str+".",index+2,num + 1);
+                }
+            }else if(!str.startsWith("0") && Integer.parseInt(str) <= 255){
+                    //3个字符只要不是以0开头,并且小于256,就符合要求
+                    process(res,s,path+str+".",index+3,num + 1);
+            }
+        }
+    }
+}
+```
 # 螺旋矩阵
 
 题目链接：https://leetcode-cn.com/problems/spiral-matrix/
