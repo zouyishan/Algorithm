@@ -20,38 +20,35 @@
 * [括号生成](#括号生成)
 
 # ip复原
-题目链接；
+题目链接: https://leetcode-cn.com/problems/restore-ip-addresses/
 
+思路：暴力！！！递归
 ```java
 class Solution {
     public List<String> restoreIpAddresses(String s) {
-        List<String> res = new ArrayList();
-        if(s == null || s.length() < 4 || s.length() > 13){
-            return res;
-        }
-        process(res,s,"",0,0);
+        List<String> res = new LinkedList<String>();
+        if (s.length() > 12 || s.length() < 4 || s == null) return res;
+        dfs(res, s, "", 0, 0);
         return res;
     }
-    public void process(List<String> res,String s,String path,int index,int num){
-        if(index > s.length() || num > 4){
+    public void dfs(List<String> res, String s, String ans, int index, int num) {
+        if (num == 4 && index == s.length()) {
+            res.add(ans.substring(0, ans.length() - 1));
             return;
         }
-        if(index == s.length() && num == 4){
-            res.add(path.substring(0,path.length() - 1));
-            return;
-        }
-        for(int i = index; i < s.length() && i < index + 3; i++){
+        for (int i = index; i < s.length() && i < index + 3; i++) {
             int length = i - index + 1;
-            String str = s.substring(index,i + 1);
-            if(length == 1) {
-                process(res,s,path+str+".",index+1,num + 1);
-            } else if(length == 2) {
-                if(!str.startsWith("0")){
-                    process(res,s,path+str+".",index+2,num + 1);
+            String str = s.substring(index, i + 1);
+            if (length == 1) {
+                dfs(res, s, ans + str + ".", index + 1, num + 1);
+            } else if (length == 2) {
+                if (!str.startsWith("0")) {
+                    dfs(res, s, ans + str + ".", index + 2, num + 1);
                 }
-            }else if(!str.startsWith("0") && Integer.parseInt(str) <= 255){
-                    //3个字符只要不是以0开头,并且小于256,就符合要求
-                    process(res,s,path+str+".",index+3,num + 1);
+            } else {
+                if (!str.startsWith("0") && Integer.parseInt(str) <= 255) {
+                    dfs(res, s, ans + str + ".", index + 3, num + 1);
+                }
             }
         }
     }
