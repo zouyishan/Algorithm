@@ -1,5 +1,5 @@
 相当于一个贪心。每次从最短距离开始找，看其他点能不能通过这个最短距离而缩小。spfa可能会被卡，推荐dij
-```
+```cpp
 #include <iostream>
 #include <algorithm>
 #include <set>
