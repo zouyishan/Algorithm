@@ -1,4 +1,5 @@
 目录(善用ctrl + f)：
+* [重排链表](#重排链表)
 * [二叉搜索树的后序遍历](#二叉搜索树的后序遍历)
 * [环形链表2](#环形链表2)
 * [环形链表](#环形链表)
@@ -23,6 +24,36 @@
 * [链表中是否存在环](#链表中是否存在环)
 * [LRU](#LRU)
 &nbsp;
+
+# 重排链表
+题目连接：https://leetcode-cn.com/problems/reorder-list/
+
+思路：好像就是一个简单得模拟，但是我不知道我得脑子犯抽了还是什么，就是想不出个很好的模拟解法。慢慢来
+```java
+class Solution {
+    public void reorderList(ListNode head) {
+        if (head == null) return;
+        ArrayList<ListNode> res = new ArrayList<ListNode>();
+        ListNode node = head;
+        while (node != null) {
+            res.add(node);
+            node = node.next;
+        }
+
+        int i = 0, j = res.size() - 1;
+        while (i < j) {
+            res.get(i).next = res.get(j);
+            i++;
+            if (i == j) break;
+            res.get(j).next = res.get(i);
+            j--;
+        }
+        res.get(i).next = null;
+
+    }
+}
+```
+
 # 二叉搜索树的后序遍历
 题目链接：https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-hou-xu-bian-li-xu-lie-lcof/
 
