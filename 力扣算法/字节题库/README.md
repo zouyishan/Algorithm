@@ -33,6 +33,34 @@ class Solution {
 }
 ```
 
+在贴一下非递归的解法，这思路就是奇数偶数添加在前还是在后的问题了啊！！！！
+```java
+class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        LinkedList<List<Integer>> res = new LinkedList<List<Integer>>();
+        if (root == null) return res;
+        LinkedList<TreeNode> ans = new LinkedList<TreeNode>();
+        ans.add(root);
+        int count = 0;
+        while (true) {
+            int size = ans.size();
+            LinkedList<Integer> temp = new LinkedList<Integer>();
+            if (size == 0) break;
+            for (int i = 0; i < size; i++) {
+                TreeNode tmp = ans.poll();
+                if (count % 2 == 0) temp.add(tmp.val);
+                else temp.add(0, tmp.val);
+                
+                if (tmp.left != null) ans.add(tmp.left);
+                if (tmp.right != null) ans.add(tmp.right);
+            }
+            count++;
+            res.add(temp);
+        }
+        return res;
+    }
+}
+```
 
 # 无重复字串的最长字串
 
