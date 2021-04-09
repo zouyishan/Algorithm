@@ -1,4 +1,5 @@
 善用ctrl + f:
+* [螺旋数组](#螺旋数组)
 * [接雨水](#接雨水)
 * [括号生成](#括号生成)
 * [前序和中序构建二叉树](#前序和中序构建二叉树)
@@ -13,6 +14,33 @@
 * [二叉树锯齿形层序遍历](#二叉树锯齿形层序遍历)
 * [无重复字串的最长字串](#无重复字串的最长字串)
 
+# 螺旋数组
+题目链接：https://leetcode-cn.com/problems/spiral-matrix/
+
+思路：又是一个模拟。
+```java
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        int l = 0, r = matrix[0].length - 1, top = 0, down = matrix.length - 1;
+        List<Integer> res = new LinkedList<Integer>();
+        while (true) {
+            for (int i = l; i <= r; i++) res.add(matrix[top][i]);
+            top++;
+            if (top > down) break;
+            for (int i = top; i <= down; i++) res.add(matrix[i][r]);
+            r--;
+            if (l > r) break;
+            for (int i = r; i >= l; i--) res.add(matrix[down][i]);
+            down--;
+            if (top > down) break;
+            for (int i = down; i >= top; i--) res.add(matrix[i][l]);
+            l++;
+            if (l > r) break;
+        }
+        return res;
+    }
+}
+```
 
 # 接雨水
 题目链接：https://leetcode-cn.com/problems/trapping-rain-water/
