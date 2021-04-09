@@ -1,4 +1,5 @@
 善用ctrl + f:
+* [下一个排列](#下一个排列)
 * [反转链表2](#反转链表2)
 * [螺旋数组](#螺旋数组)
 * [接雨水](#接雨水)
@@ -14,6 +15,41 @@
 * [K个一组翻转链表](#K个一组翻转链表)
 * [二叉树锯齿形层序遍历](#二叉树锯齿形层序遍历)
 * [无重复字串的最长字串](#无重复字串的最长字串)
+
+# 下一个排列
+题目链接：https://leetcode-cn.com/problems/next-permutation/
+
+思路：从最后开始找到第一个非递增的数，然后再将其和严格大于它的数交换位置，然后从它的位置后面的数都交换位置。
+
+估计没说清除。 看看图：
+
+![31](https://user-images.githubusercontent.com/57765968/114211261-fcc55d80-9992-11eb-822c-b1490e2a27bb.gif)
+
+```java
+class Solution {
+    public void nextPermutation(int[] nums) {
+        int i = nums.length - 1, temp = 0;
+        int n = i, total = i;
+        while (i > 0 && nums[i - 1] >= nums[i]) i--;
+        if (i != 0) {
+            i--;
+            while (n > i && nums[n] <= nums[i]) n--;
+            swap(nums, i, n);
+        } else i--;
+        i++;
+        while (i < total) {
+            swap(nums, i, total);
+            i++; total--;
+        }
+
+    }
+    public void swap(int[] nums, int x, int y) {
+        int temp = nums[x];
+        nums[x] = nums[y];
+        nums[y] = temp;
+    }
+}
+```
 
 # 反转链表2
 题目链接：https://leetcode-cn.com/problems/reverse-linked-list-ii/
