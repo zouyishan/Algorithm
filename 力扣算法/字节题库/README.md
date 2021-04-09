@@ -1,4 +1,5 @@
 善用ctrl + f:
+* [反转链表2](#反转链表2)
 * [螺旋数组](#螺旋数组)
 * [接雨水](#接雨水)
 * [括号生成](#括号生成)
@@ -13,6 +14,47 @@
 * [K个一组翻转链表](#K个一组翻转链表)
 * [二叉树锯齿形层序遍历](#二叉树锯齿形层序遍历)
 * [无重复字串的最长字串](#无重复字串的最长字串)
+
+# 反转链表2
+题目链接：https://leetcode-cn.com/problems/reverse-linked-list-ii/
+
+思路：老暴力了，先new一个值的next记录一下头节点，然后就是一顿模拟了
+```java
+class Solution {
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        if (left == right || head.next == null) return head;
+        ListNode ans = new ListNode(0, head);
+        ListNode cur = ans, pre = null;
+        for (int i = 0; i < left; i++) {
+            pre = cur;
+            cur = cur.next;
+        }
+        pre.next = null; // 清空 cur为链表开始
+        int size = right - left;
+        ListNode end = cur;
+        for (int i = 1; i <= size; i++) end = end.next;
+
+        ListNode tmp = end.next; // 最后一个节点
+        end.next = null;
+        ListNode p = reverse(cur);
+
+        pre.next = p;
+        cur.next = tmp;
+        return ans.next;
+    }
+    
+    public ListNode reverse(ListNode root) {
+        ListNode cur = root, pre = null;
+        while (cur != null) {
+            ListNode next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+        }
+        return pre;
+    }
+}
+```
 
 # 螺旋数组
 题目链接：https://leetcode-cn.com/problems/spiral-matrix/
