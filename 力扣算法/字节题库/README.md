@@ -1,7 +1,47 @@
 善用ctrl + f:
 
+* [K个一组翻转链表](#K个一组翻转链表)
 * [二叉树锯齿形层序遍历](#二叉树锯齿形层序遍历)
 * [无重复字串的最长字串](#无重复字串的最长字串)
+
+# K个一组翻转链表
+题目链接：https://leetcode-cn.com/problems/reverse-nodes-in-k-group/
+
+思路：就是一通乱模拟，注意end那个找到尾节点的时候要记住设置next为null。不然会没法找的
+```java
+class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        ListNode first = new ListNode(0);
+        ListNode end = first, res = first;
+        end.next = head;
+        while (true) {
+            for (int i = 0; i < k && end != null; i++) end = end.next;
+            if (end == null) break;
+            ListNode next = end.next;
+            end.next = null;
+            ListNode pre = first.next;
+            ListNode tmp = reverse(first.next); 
+            first.next = tmp;
+            pre.next = next;
+            first = pre;
+            end = pre;
+        }
+        return res.next;
+
+    }
+    public ListNode reverse(ListNode root) {
+        ListNode cur = root, pre = null;
+        while (cur != null) {
+            ListNode next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+        }
+        return pre;
+    }
+}
+```
+&nbsp;
 
 # 二叉树锯齿形层序遍历
 题目链接：https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal/
