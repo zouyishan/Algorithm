@@ -1,11 +1,55 @@
 善用ctrl + f:
 
+* [LRU缓存机制](#LRU缓存机制)
 * [数组中第K个最大元素](#数组中第K个最大元素)
 * [翻转链表](#翻转链表)
 * [K个一组翻转链表](#K个一组翻转链表)
 * [二叉树锯齿形层序遍历](#二叉树锯齿形层序遍历)
 * [无重复字串的最长字串](#无重复字串的最长字串)
 
+# LRU缓存机制
+题目链接：https://leetcode-cn.com/problems/lru-cache/
+
+思路：就是LRU算法。这个不会真的要被打=_=
+```java
+class LRUCache {
+    int capacity = 0;
+    HashMap<Integer, Integer> map = null;
+    LinkedList<Integer> list = null;
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        map = new HashMap<Integer, Integer>();
+        list = new LinkedList<Integer>();
+    }
+    
+    public int get(int key) {
+        if (map.containsKey(key)) {
+            list.remove((Integer)key);
+            list.addFirst(key);
+            return map.get(key);
+        }
+        return -1;
+    }
+    
+    public void put(int key, int value) {
+        if (map.containsKey(key)) {
+            list.remove((Integer)key);
+            list.addFirst((Integer)key);
+            map.put(key, value);
+            return;
+        }
+        if (list.size() == capacity) {
+            map.remove(list.getLast());
+            list.removeLast();
+            list.addFirst((Integer)key);
+            map.put(key, value);
+            return;
+        }
+        map.put(key, value);
+        list.addFirst(key);
+    }
+}
+```
 # 数组中第K个最大元素
 题目链接：https://leetcode-cn.com/problems/kth-largest-element-in-an-array/
 
