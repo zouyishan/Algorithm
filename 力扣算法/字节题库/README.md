@@ -1,5 +1,6 @@
 善用ctrl + f:
 
+* [买卖股票的最佳时机](#买卖股票的最佳时机)
 * [三数之和](#三数之和)
 * [LRU缓存机制](#LRU缓存机制)
 * [数组中第K个最大元素](#数组中第K个最大元素)
@@ -8,6 +9,42 @@
 * [二叉树锯齿形层序遍历](#二叉树锯齿形层序遍历)
 * [无重复字串的最长字串](#无重复字串的最长字串)
 
+# 买卖股票的最佳时机
+题目链接：https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/
+
+思路：很多方法都能做的
+
+```java
+class Solution {
+    public int maxProfit(int[] prices) {
+        int ans = 0;
+        if (prices.length == 0) return ans;
+        int[] temp = new int[prices.length];
+        for (int i = 1; i < prices.length; i++) {
+            temp[i] = prices[i] - prices[i - 1];
+            temp[i] += Math.max(temp[i - 1], 0);
+            ans = Math.max(temp[i], ans);
+        }
+        return ans;
+    }
+}
+```
+另一种方法
+```java
+class Solution {
+    public int maxProfit(int[] prices) {
+        int ans = 0, temp = 0;
+        if (prices.length == 0) return ans;
+        for (int i = 1; i < prices.length; i++) {
+            temp += prices[i] - prices[i - 1];
+            if (temp < 0) temp = 0;
+            ans = Math.max(temp, ans);
+        }
+        return ans;
+    }
+}
+```
+&nbsp;
 # 三数之和
 题目链接：https://leetcode-cn.com/problems/3sum/
 
