@@ -1,4 +1,5 @@
 善用ctrl + f:
+* [接雨水](#接雨水)
 * [括号生成](#括号生成)
 * [前序和中序构建二叉树](#前序和中序构建二叉树)
 * [相交链表](#相交链表)
@@ -12,6 +13,31 @@
 * [二叉树锯齿形层序遍历](#二叉树锯齿形层序遍历)
 * [无重复字串的最长字串](#无重复字串的最长字串)
 
+
+# 接雨水
+题目链接：https://leetcode-cn.com/problems/trapping-rain-water/
+
+思路：**第i个能接的水是左右最大值的最小值然后在减去原来的height[i]的值**
+```java
+class Solution {
+    public int trap(int[] height) {
+        if (height.length == 1 || height.length == 0) return 0; 
+        int[] lmax = new int[height.length];
+        lmax[0] = height[0]; 
+        for (int i = 1; i < height.length; i++) lmax[i] = Math.max(lmax[i - 1], height[i]);
+
+        int[] rmax = new int[height.length];
+        rmax[height.length - 1] = height[height.length - 1];
+        for (int i = height.length - 2; i >= 0; i--) rmax[i] = Math.max(rmax[i + 1], height[i]);
+
+        int ans = 0;
+        for (int i = 0; i < height.length; i++) {
+            ans += Math.min(lmax[i], rmax[i]) - height[i];
+        }
+        return ans;
+    }
+}
+````
 # 括号生成
 题目链接：https://leetcode-cn.com/problems/generate-parentheses/
 
