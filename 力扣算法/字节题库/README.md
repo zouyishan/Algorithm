@@ -1,4 +1,5 @@
 善用ctrl + f:
+* [括号生成](#括号生成)
 * [前序和中序构建二叉树](#前序和中序构建二叉树)
 * [相交链表](#相交链表)
 * [二叉树的最近公共祖先](#二叉树的最近公共祖先)
@@ -11,6 +12,29 @@
 * [二叉树锯齿形层序遍历](#二叉树锯齿形层序遍历)
 * [无重复字串的最长字串](#无重复字串的最长字串)
 
+# 括号生成
+题目链接：https://leetcode-cn.com/problems/generate-parentheses/
+
+思路：暴力递归！！！
+```java
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        LinkedList<String> res = new LinkedList<String>();
+        dfs("", 0, 0, n, res);
+        return res;
+    }
+    public void dfs(String cur, int left, int right, int total, LinkedList<String> res) {
+        if (left == total && right == total) {
+            res.add(cur);
+            return;
+        }
+        if (left < right) return;
+        if (left < total) dfs(cur + "(", left + 1, right, total, res);
+        if (right < total) dfs(cur + ")", left, right + 1, total, res);
+    }
+}
+```
+&nbsp;
 # 前序和中序构建二叉树
 题目链接：https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
 
