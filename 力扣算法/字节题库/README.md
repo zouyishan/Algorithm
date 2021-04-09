@@ -1,9 +1,59 @@
 善用ctrl + f:
 
+* [数组中第K个最大元素](#数组中第K个最大元素)
+* [翻转链表](#翻转链表)
 * [K个一组翻转链表](#K个一组翻转链表)
 * [二叉树锯齿形层序遍历](#二叉树锯齿形层序遍历)
 * [无重复字串的最长字串](#无重复字串的最长字串)
 
+# 数组中第K个最大元素
+题目链接：https://leetcode-cn.com/problems/kth-largest-element-in-an-array/
+
+思路：反正觉着就挺常规的。堆排更简单
+```java
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        return quicksearch(nums, 0, nums.length - 1, k - 1);
+    }
+    public int quicksearch(int[] nums, int l, int r, int k) {
+        int mid = (l + r) >> 1;
+        int x = nums[mid];
+        int i = l, j = r;
+        while (i <= j) {
+            while (nums[i] > x) i++;
+            while (nums[j] < x) j--;
+            if (i <= j) {
+                int temp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp;
+                i++; j--;
+            }
+        }
+        if (k <= j) quicksearch(nums, l, j, k);
+        else if (k >= i) quicksearch(nums, i, r, k);
+        return nums[k];
+    }
+}
+```
+# 翻转链表
+题目链接：https://leetcode-cn.com/problems/reverse-linked-list/
+
+应该是面试答的好，面试官配合一下搞出的这个.........
+```java
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode pre = null, cur = head;
+        while (cur != null) {
+            ListNode next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
+        }
+        return pre;
+    }
+}
+```
+&nbsp;
 # K个一组翻转链表
 题目链接：https://leetcode-cn.com/problems/reverse-nodes-in-k-group/
 
