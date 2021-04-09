@@ -1,5 +1,5 @@
 善用ctrl + f:
-
+* [二叉树的最近公共祖先](#二叉树的最近公共祖先)
 * [买卖股票的最佳时机](#买卖股票的最佳时机)
 * [三数之和](#三数之和)
 * [LRU缓存机制](#LRU缓存机制)
@@ -9,6 +9,23 @@
 * [二叉树锯齿形层序遍历](#二叉树锯齿形层序遍历)
 * [无重复字串的最长字串](#无重复字串的最长字串)
 
+# 二叉树的最近公共祖先
+题目链接：https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/
+
+思路：递归好暴力啊！！！！ 什么LCA 什么tarjan都是浮云！！！
+```java
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null || root == p || root == q) return root;
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if (left == null && right == null) return null;
+        if (left == null) return right;
+        if (right == null) return left;
+        return root;
+    }
+}
+```
 # 买卖股票的最佳时机
 题目链接：https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/
 
