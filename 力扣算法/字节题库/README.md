@@ -1,4 +1,6 @@
 善用ctrl + f:
+* [前序和中序构建二叉树](#前序和中序构建二叉树)
+* [相交链表](#相交链表)
 * [二叉树的最近公共祖先](#二叉树的最近公共祖先)
 * [买卖股票的最佳时机](#买卖股票的最佳时机)
 * [三数之和](#三数之和)
@@ -9,6 +11,45 @@
 * [二叉树锯齿形层序遍历](#二叉树锯齿形层序遍历)
 * [无重复字串的最长字串](#无重复字串的最长字串)
 
+# 前序和中序构建二叉树
+题目链接：https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+
+思路：中序那个区间应该好弄，但是要注意的就是前序的那个区间，是用中序的数量来弄的。
+```java
+class Solution {
+    HashMap<Integer, Integer> map = null;
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        map = new HashMap<Integer, Integer>();
+        for (int i = 0; i < preorder.length; i++) map.put(inorder[i], i);
+        return dfs(preorder, 0, preorder.length - 1, inorder, 0, preorder.length - 1);
+    }
+
+    public TreeNode dfs(int[] preorder, int lindex, int lend, int[] inorder, int rindex, int rend) {
+        if (lindex > lend) return null;
+        TreeNode root = new TreeNode(preorder[lindex]);
+        int num = map.get(preorder[lindex]);
+        root.left = dfs(preorder, lindex + 1, lindex + num - rindex, inorder, rindex, num - 1);
+        root.right = dfs(preorder, lindex + num - rindex + 1, lend, inorder, num + 1, rend);
+        return root;
+    }
+}
+```
+# 相交链表
+题目链接：https://leetcode-cn.com/problems/intersection-of-two-linked-lists/
+
+```java
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode he = headA, she = headB;
+        while (he != she) {
+            he = he == null ? headB : he.next;
+            she = she == null ? headA : she.next;
+        }
+        return she;
+    }
+}
+```
+&nbsp;
 # 二叉树的最近公共祖先
 题目链接：https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/
 
