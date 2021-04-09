@@ -1,5 +1,6 @@
 善用ctrl + f:
 
+* [三数之和](#三数之和)
 * [LRU缓存机制](#LRU缓存机制)
 * [数组中第K个最大元素](#数组中第K个最大元素)
 * [翻转链表](#翻转链表)
@@ -7,6 +8,40 @@
 * [二叉树锯齿形层序遍历](#二叉树锯齿形层序遍历)
 * [无重复字串的最长字串](#无重复字串的最长字串)
 
+# 三数之和
+题目链接：https://leetcode-cn.com/problems/3sum/
+
+思路：大模拟，也没啥好要注意的感觉.........
+```java
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        LinkedList<List<Integer>> res = new LinkedList<List<Integer>>();
+        Arrays.sort(nums);
+        if (nums.length < 3) return res;
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (nums[i] > 0) break;
+            if (i > 0 && nums[i] == nums[i - 1]) continue;
+            int l = i + 1, r = nums.length - 1;
+            while (l < r) {
+                int sum = nums[i] + nums[l] + nums[r];
+                if (sum == 0) {
+                    List<Integer> temp = new LinkedList<Integer>();
+                    temp.add(nums[i]);
+                    temp.add(nums[l]);
+                    temp.add(nums[r]);
+                    res.add(temp);
+                    while (l < r && nums[l] == nums[l + 1]) l++;
+                    while (l < r && nums[r] == nums[r - 1]) r--;
+                    l++; r--;
+                } 
+                else if (sum > 0) r--;
+                else l++;
+            }
+        }
+        return res;
+    }
+}
+```
 # LRU缓存机制
 题目链接：https://leetcode-cn.com/problems/lru-cache/
 
