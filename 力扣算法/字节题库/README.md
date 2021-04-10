@@ -1,4 +1,5 @@
 善用ctrl + f:
+* [合并区间](#合并区间)
 * [下一个排列](#下一个排列)
 * [反转链表2](#反转链表2)
 * [螺旋数组](#螺旋数组)
@@ -16,6 +17,30 @@
 * [二叉树锯齿形层序遍历](#二叉树锯齿形层序遍历)
 * [无重复字串的最长字串](#无重复字串的最长字串)
 
+# 合并区间
+题目链接：https://leetcode-cn.com/problems/merge-intervals/
+
+思路：就模拟吧~~ 注意一下这个toArray方法啊！
+```java
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        LinkedList<int[]> res = new LinkedList<int[]>();
+        Arrays.sort(intervals, (int[] a, int[] b) -> {
+            return a[0] - b[0];
+        });
+        res.add(new int[]{intervals[0][0], intervals[0][1]});
+        for (int i = 1; i < intervals.length; i++) {
+            if (intervals[i][0] > res.get(res.size() - 1)[1]) {
+                res.add(new int[]{intervals[i][0], intervals[i][1]});
+            } else {
+                res.get(res.size() - 1)[1] = Math.max(res.get(res.size() - 1)[1], intervals[i][1]);
+            }
+        }
+        return res.toArray(new int[1][]);
+    }
+}
+```
+&nbsp;
 # 下一个排列
 题目链接：https://leetcode-cn.com/problems/next-permutation/
 
