@@ -1,4 +1,5 @@
 善用ctrl + f:
+* [缺失的第一个正数](#缺失的第一个正数)
 * [合并区间](#合并区间)
 * [下一个排列](#下一个排列)
 * [反转链表2](#反转链表2)
@@ -17,6 +18,33 @@
 * [二叉树锯齿形层序遍历](#二叉树锯齿形层序遍历)
 * [无重复字串的最长字串](#无重复字串的最长字串)
 
+# 缺失的第一个正数
+题目链接: https://leetcode-cn.com/problems/first-missing-positive/
+
+思路：相当于是数组本身当作一个桶。每次遍历i的时候将对应的nums[i]放到属于nums[i]的位置，反正是很精妙的~
+
+```java
+class Solution {
+    public int firstMissingPositive(int[] nums) {
+        for (int i = 0; i < nums.length; i++) {
+            while (nums[i] > 0 && nums[i] <= nums.length && nums[i] != i + 1 && nums[nums[i] - 1] != nums[i]) {
+                swap(nums, i, nums[i] - 1);
+            }
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != i + 1) return i + 1;
+        }
+        return nums.length + 1;
+    }
+
+    public void swap(int[] nums, int x, int y) {
+        int temp = nums[x];
+        nums[x] = nums[y];
+        nums[y] = temp;
+    }
+}
+```
+&nbsp;
 # 合并区间
 题目链接：https://leetcode-cn.com/problems/merge-intervals/
 
