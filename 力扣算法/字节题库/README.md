@@ -1,4 +1,5 @@
 善用ctrl + f:
+* [二叉树的右视图](#二叉树的右视图)
 * [缺失的第一个正数](#缺失的第一个正数)
 * [合并区间](#合并区间)
 * [下一个排列](#下一个排列)
@@ -17,6 +18,28 @@
 * [K个一组翻转链表](#K个一组翻转链表)
 * [二叉树锯齿形层序遍历](#二叉树锯齿形层序遍历)
 * [无重复字串的最长字串](#无重复字串的最长字串)
+
+# 二叉树的右视图
+题目链接：https://leetcode-cn.com/problems/binary-tree-right-side-view/
+
+思路：dfs进去就可以了~~~
+```java
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> res = new LinkedList<Integer>();
+        if (root == null) return res;
+        dfs(root, 0, res);
+        return res;
+    }
+    public void dfs(TreeNode root, int level, List<Integer> res) {
+        if (res.size() <= level) {
+            res.add(root.val);
+        }
+        if (root.right != null) dfs(root.right, level + 1, res);
+        if (root.left != null) dfs(root.left, level + 1, res);
+    }
+}
+```
 
 # 缺失的第一个正数
 题目链接: https://leetcode-cn.com/problems/first-missing-positive/
