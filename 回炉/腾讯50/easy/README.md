@@ -61,3 +61,22 @@ class Solution {
     }
 }
 ```
+# 删除有序数组中的重复项
+https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/
+```java
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        if (nums.length == 0) return 0;
+        int tmp = nums[0], res = 1;
+        for (int i = 1; i < nums.length; i++) {
+            if (tmp == nums[i]) continue;
+            else {
+                tmp = nums[i];
+                nums[res] = tmp;
+                res++;
+            }
+        }
+        return res;
+    }
+}
+```
