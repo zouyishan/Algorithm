@@ -1,8 +1,9 @@
 # 二叉搜索树的最近公共祖先
 https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
 
-很有意思的一个题目。这个方法也很新奇！！！
-```c
+很有意思的一个题目。这个方法也很新奇！！！但是这个只是针对二叉搜索树。
+
+```java
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         while (true) {
@@ -18,7 +19,35 @@ class Solution {
     }
 }
 ```
+真要看最近公共祖先可以参考这题：https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/
+```java
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null || root == p || root == q) return root;
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if (left == null) return right;
+        if (right == null) return left;
+        return root;
+    }
+}
+```
+# 删除链表中的节点
+https://leetcode-cn.com/problems/delete-node-in-a-linked-list/
 
+有点新颖，还行吧
+```java
+class Solution {
+    public void deleteNode(ListNode node) {
+        node.val = node.next.val;
+        if (node.next.next == null) {
+            node.next = null;
+            return;
+        }
+        deleteNode(node.next);
+    }
+}
+```
 # 整数反转
 https://leetcode-cn.com/problems/reverse-integer/
 ```java
