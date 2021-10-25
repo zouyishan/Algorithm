@@ -99,3 +99,19 @@ class Solution {
     }
 }
 ```
+# 存在重复元素
+https://leetcode-cn.com/problems/contains-duplicate/
+```c
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        Map<Integer, Integer> maps = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (maps.containsKey(nums[i])) {
+                return true;
+            }
+            maps.put(nums[i], 100);
+        }
+        return false;
+    }
+}
+```
