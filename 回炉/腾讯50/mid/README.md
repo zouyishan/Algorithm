@@ -1,3 +1,39 @@
+# 旋转链表
+https://leetcode-cn.com/problems/rotate-list/
+```java
+class Solution {
+    public static ListNode resverse(ListNode head) {
+        ListNode pre = head;
+        int tmp_val = head.val, tmp = 0;
+        while (head.next != null) {
+            ListNode next = head.next;
+            tmp = next.val;
+            next.val = tmp_val;
+            tmp_val = tmp;
+            head = head.next;
+        }
+        pre.val = tmp_val;
+        return pre;
+    }
+
+    public ListNode rotateRight(ListNode head, int k) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode pre = head;
+        int count = 0;
+        while (head != null) {
+            head = head.next;
+            count++;
+        }
+        k = k % count;
+        for (int i = 0; i < k; i++) {
+            pre = resverse(pre);
+        }
+        return pre;
+    }
+}
+```
 # 螺旋矩阵 II
 https://leetcode-cn.com/problems/spiral-matrix-ii/
 
