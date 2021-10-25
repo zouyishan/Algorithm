@@ -1,6 +1,35 @@
+# 二叉搜索树中第K小的元素
+https://leetcode-cn.com/problems/kth-smallest-element-in-a-bst/
+
+主要思路就是通过中序遍历找到第k小。注意这里的static不能直接从零开始，要对其进行赋值，不然，肯定没！！！
+```java
+class Solution {
+    public static int count = 0;
+    public static int get_res(TreeNode root, int k) {
+        if (root == null) return 0;
+        int left = get_res(root.left, k);
+        if (0 == count) {
+            return left;
+        }
+        count--;
+        if (0 == count) {
+            return root.val;
+        }
+        int right = get_res(root.right, k);
+        if (right == 0) return left;
+        if (left == 0) return right;
+        return 0;
+    }
+
+    public int kthSmallest(TreeNode root, int k) {
+        count = k;
+        return get_res(root, k);
+    }
+}
+```
 # 两数相加
 https://leetcode-cn.com/problems/add-two-numbers/
-```c
+```java
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode now = new ListNode(0);
