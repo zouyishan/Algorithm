@@ -1,3 +1,24 @@
+# 二叉搜索树的最近公共祖先
+https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
+
+很有意思的一个题目。这个方法也很新奇！！！
+```c
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        while (true) {
+            if (p.val > root.val && q.val > root.val) {
+                root = root.right;
+            } else if (p.val < root.val && q.val < root.val) {
+                root = root.left;
+            } else {
+                break;
+            }
+        }
+        return root;
+    }
+}
+```
+
 # 整数反转
 https://leetcode-cn.com/problems/reverse-integer/
 ```java
