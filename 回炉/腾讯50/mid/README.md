@@ -1,3 +1,31 @@
+# 螺旋矩阵 II
+https://leetcode-cn.com/problems/spiral-matrix-ii/
+
+emmmm 就这, 跟着思路模拟就行
+```java
+class Solution {
+    public int[][] generateMatrix(int n) {
+        int[][] res = new int[n][n];
+        int i = 1, x = 0, y = 0;
+        while (i <= n * n) {
+            while (y < n && res[x][y] == 0) res[x][y++] = i++;
+            y--; x++;
+            // System.out.println(x + " " + y);
+            while (x < n && res[x][y] == 0) res[x++][y] = i++;
+            x--; y--;
+            // System.out.println(x + " " + y);
+            while (y >= 0 && res[x][y] == 0) res[x][y--] = i++;
+            y++; x--;
+            // System.out.println(x + " " + y);
+            while (x >= 0 && res[x][y] == 0) res[x--][y] = i++;
+            x++; y++;
+            // System.out.println(x + " " + y);
+        }
+        return res;
+    }
+}
+```
+
 # 二叉搜索树中第K小的元素
 https://leetcode-cn.com/problems/kth-smallest-element-in-a-bst/
 
