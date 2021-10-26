@@ -1,3 +1,27 @@
+# 二叉树中的最大路径和
+https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/
+
+自己想的大部分哦，好好看看这个递归：
+```java
+class Solution {
+    public static int res = 0;
+    public static int get_max(TreeNode root) {
+        if (root == null) return 0;
+        int left_value = Math.max(get_max(root.left), 0);
+        int right_value = Math.max(get_max(root.right), 0);
+        int pre_val = root.val;
+        pre_val += left_value + right_value;
+        res = Math.max(res, pre_val);
+        return root.val + Math.max(left_value, right_value); 
+    }
+    
+    public int maxPathSum(TreeNode root) {
+        res = 1 << 31;
+        get_max(root);
+        return res;
+    }
+}
+```
 # 寻找两个正序数组的中位数
 一个看起来像easy的hard题目：
 https://leetcode-cn.com/problems/median-of-two-sorted-arrays/
