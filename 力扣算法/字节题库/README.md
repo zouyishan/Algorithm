@@ -534,6 +534,24 @@ public class Solution {
     }
 }
 ```
+二刷相交链表
+```java
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == headB) {
+            return headB;
+        }
+        ListNode nodeA = headA, nodeB = headB;
+
+        while (nodeA != nodeB) {
+            nodeA = nodeA == null ? headB : nodeA.next;
+            nodeB = nodeB == null ? headA : nodeB.next;
+        }
+
+        return nodeA;
+    }
+}
+```
 &nbsp;
 # 二叉树的最近公共祖先
 题目链接：https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/
