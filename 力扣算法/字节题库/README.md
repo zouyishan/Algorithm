@@ -271,7 +271,62 @@ class Solution {
     }
 }
 ```
+二刷，我好笨啊，呜呜呜呜
+```java
+class Solution {
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        if (left == right) {
+            return head;
+        }
 
+        ListNode node = head, preLeft = null, leftNode = null, tailRight = null, rightNode = null;
+        Boolean flag = false;
+        for (int i = 1; ; i++) {
+            if (i == left) {
+                leftNode = node;
+                flag = true;
+            }
+            if (!flag) {
+                preLeft = node;
+            }
+            if (i == right) {
+                rightNode = node;
+            }
+            node = node.next;
+            if (rightNode != null) {
+                tailRight = node;
+                break;
+            }
+        }
+
+        if (preLeft != null) {
+            preLeft.next = null;
+        }
+        rightNode.next = null;
+
+        change(leftNode);
+        if (preLeft != null) {
+            preLeft.next = rightNode;
+        }
+        leftNode.next = tailRight;
+
+        if (left == 1) {
+            return rightNode;
+        }
+        return head;
+    }
+
+    public void change(ListNode node) {
+        ListNode pre = null;
+        while (node != null) {
+            ListNode temp = node.next;
+            node.next = pre;
+            pre = node;
+            node = temp;
+        }
+    }
+}
+```
 # 螺旋数组
 题目链接：https://leetcode-cn.com/problems/spiral-matrix/
 
