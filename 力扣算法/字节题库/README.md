@@ -158,7 +158,7 @@ class Solution {
 
 思路：从最后开始找到第一个非递增的数，然后再将其和严格大于它的数交换位置，然后从它的位置后面的数都交换位置。
 
-估计没说清除。 看看图：
+估计没说清楚。 看看图：
 
 ![31](https://user-images.githubusercontent.com/57765968/114211261-fcc55d80-9992-11eb-822c-b1490e2a27bb.gif)
 
@@ -180,6 +180,49 @@ class Solution {
         }
 
     }
+    public void swap(int[] nums, int x, int y) {
+        int temp = nums[x];
+        nums[x] = nums[y];
+        nums[y] = temp;
+    }
+}
+```
+二刷，我好笨啊，写了个最笨的模拟
+```java
+class Solution {
+    public void nextPermutation(int[] nums) {
+        if (nums.length <= 1) {
+            return;
+        }
+
+        int endValue = nums[nums.length - 1], startValue = -1, count = 2;
+        int resEnd = 0;
+        while (count <= nums.length) {
+            for (int i = nums.length - count; i >= 0; i--) {
+                if (nums[i] < endValue && i > startValue) {
+                    startValue = i;
+                    resEnd = nums.length - count + 1;
+                    break;
+                }
+            }
+            endValue = nums[nums.length - count];
+            count++;
+        }
+
+        if (startValue == -1) {
+            for (int i = 0; i < nums.length / 2; i++) {
+                swap(nums, i, nums.length - i - 1);
+            }
+            return;
+        }
+        
+        swap(nums, resEnd, startValue);
+
+        Arrays.sort(nums, startValue + 1, nums.length);
+        return;
+    }
+    
+
     public void swap(int[] nums, int x, int y) {
         int temp = nums[x];
         nums[x] = nums[y];
