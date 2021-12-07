@@ -467,6 +467,34 @@ class Solution {
     }
 }
 ```
+二刷，还是记下
+```java
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> res = new LinkedList<>();
+        if (n == 0) {
+            return res;
+        }
+        generate("", 0, 0, n, res);
+        return res;
+    }
+    public void generate(String str, int left, int right, int total, List<String> res) {
+        if (left == total && right == total) {
+            res.add(str);
+            return;
+        }
+        if (right > left) {
+            return;
+        }
+        if (left < total) {
+            generate(str + "(", left + 1, right, total, res);
+        }
+        if (right < total) {
+            generate(str + ")", left, right + 1, total, res);    
+        }
+    }
+}
+```
 &nbsp;
 # 前序和中序构建二叉树
 题目链接：https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
