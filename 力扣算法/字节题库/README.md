@@ -570,6 +570,25 @@ class Solution {
     }
 }
 ```
+二刷公共祖先, 还行
+```java
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null || root == p || root == q) {
+            return root;
+        }
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if (left == null) {
+            return right;
+        }
+        if (right == null) {
+            return left;
+        }
+        return root;
+    }
+}
+```
 # 买卖股票的最佳时机
 题目链接：https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/
 
