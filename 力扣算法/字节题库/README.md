@@ -900,3 +900,29 @@ class Solution {
     }
 }
 ```
+二刷无重复字串的最长字串
+```java
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        if (s.length() == 0) {
+            return 0;
+        }
+        
+        int res = 0, ans = 0;
+        int[] flag = new int[200];
+        for (int i = 0; i < s.length(); i++) {
+            if (flag[s.charAt(i) - ' ' + 32] == 0) {
+                flag[s.charAt(i) - ' ' + 32] = i + 1;
+                ans++;
+            } else if (i + 1 - flag[s.charAt(i) - ' ' + 32] <= ans) {
+                ans = i + 1 - flag[s.charAt(i) - ' ' + 32];
+            } else {
+                ans++;
+            }
+            flag[s.charAt(i) - ' ' + 32] = i + 1;
+            res = res > ans ? res : ans;
+        }
+        return res;
+    }
+}
+```
