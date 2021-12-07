@@ -40,7 +40,30 @@ class Solution {
     }
 }
 ```
-
+二刷右视图
+```java
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        if (root == null) {
+            return new LinkedList<>();
+        }
+        List<Integer> res = new LinkedList<>();
+        dfs(res, root, 1);
+        return res;
+    }
+    public void dfs(List<Integer> res, TreeNode root, int level) {
+        if (res.size() < level) {
+            res.add(root.val);
+        }
+        if (root.right != null) {
+            dfs(res, root.right, level + 1);
+        }
+        if (root.left != null) {
+            dfs(res, root.left, level + 1);
+        }
+    }
+}
+```
 # 缺失的第一个正数
 题目链接: https://leetcode-cn.com/problems/first-missing-positive/
 
