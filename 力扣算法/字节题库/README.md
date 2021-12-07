@@ -825,6 +825,56 @@ class Solution {
     }
 }
 ```
+二刷K个一组翻转链表
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        ListNode res = new ListNode(0), node = res;
+        res.next = head;
+        while (true) {
+            boolean flag = false;
+            ListNode pre = node, start = node.next, end = null, tailNode = null;
+            for (int i = 1; i <= k; i++) {
+                node = node.next;
+                if (node == null) {
+                    flag = true; break;
+                }
+            }
+            if (flag) {
+                break;
+            }
+            end = node;
+            tailNode = end.next;
+            end.next = null;
+            reverse(start);
+            pre.next = end;
+            start.next = tailNode;
+            node = start;
+        }
+        return res.next;
+    }
+
+    public void reverse(ListNode node) {
+        ListNode pre = null;
+        while (node != null) {
+            ListNode tmp = node.next;
+            node.next = pre;
+            pre = node;
+            node = tmp;
+        }
+    }
+}
+```
 &nbsp;
 
 # 二叉树锯齿形层序遍历
