@@ -772,6 +772,21 @@ class Solution {
     }
 }
 ```
+二刷反转链表
+```java
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode pre = null;
+        while (head != null) {
+            ListNode temp = head.next;
+            head.next = pre;
+            pre = head;
+            head = temp;
+        }
+        return pre;
+    }
+}
+```
 &nbsp;
 # K个一组翻转链表
 题目链接：https://leetcode-cn.com/problems/reverse-nodes-in-k-group/
