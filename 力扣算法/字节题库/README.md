@@ -354,7 +354,46 @@ class Solution {
     }
 }
 ```
+二刷螺旋数组，oye 还是老方法好用
+```java
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        int m = matrix.length, n = matrix[0].length;
+        int total = m * n, i = 0, j = 0, cur = 1;
+        List<Integer> res = new ArrayList<>();
+        while (cur <= total) {
+            while (j < n && i < m && i >= 0 && j >= 0 && matrix[i][j] != -100) {
+                res.add(matrix[i][j]);
+                matrix[i][j] = -100;
+                j++; cur++;
+            }
+            j--; i++;
 
+            while (j < n && i < m && i >= 0 && j >= 0 && matrix[i][j] != -100) {
+                res.add(matrix[i][j]);
+                matrix[i][j] = -100;
+                i++; cur++;
+            }
+            i--; j--;
+
+            while (j < n && i < m && i >= 0 && j >= 0 && matrix[i][j] != -100) {
+                res.add(matrix[i][j]);
+                matrix[i][j] = -100;
+                j--; cur++;
+            }
+            i--; j++;
+
+            while (j < n && i < m && i >= 0 && j >= 0 && matrix[i][j] != -100) {
+                res.add(matrix[i][j]);
+                matrix[i][j] = -100;
+                i--; cur++;
+            }
+            i++; j++;
+        }
+        return res;
+    }
+}
+```
 # 接雨水
 题目链接：https://leetcode-cn.com/problems/trapping-rain-water/
 
