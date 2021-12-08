@@ -1,3 +1,35 @@
+# 组合总和
+https://leetcode-cn.com/problems/combination-sum/
+
+dfs，这个和括号序列很像很像，但是开始做的时候还是没有思路....................
+```java
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> res = new LinkedList<>();
+        List<Integer> ans = new LinkedList<>();
+        dfs(res, ans, target, 0, candidates);
+        return res;
+    }
+
+    public void dfs(List<List<Integer>> res, List<Integer> ans, int target, int idx, int[] total) {
+        if (idx >= total.length) {
+            return;
+        }
+        if (target == 0) {
+            res.add(new LinkedList<>(ans));
+            return;
+        }
+
+        dfs(res, ans, target, idx + 1, total);
+
+        if (target - total[idx] >= 0) {
+            ans.add(total[idx]);
+            dfs(res, ans, target - total[idx], idx, total);
+            ans.remove((int) ans.size() - 1);
+        }
+    }
+}
+```
 # 在排序数组中查找元素的第一个和最后一个位置
 二分的思想淋漓尽致。多学学
 
