@@ -31,3 +31,39 @@ class Solution {
     }
 }
 ```
+
+# 全排列
+二刷全排列了啊。还行吧
+
+https://leetcode-cn.com/problems/permutations/
+```java
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new LinkedList<>();
+        if (nums.length == 1) {
+            res.add(Arrays.asList(nums[0]));           
+            return res;
+        }
+
+        dfs(res, nums, 0, nums.length, new LinkedList<>(), new boolean[nums.length]);
+        return res;
+    }
+
+    public void dfs(List<List<Integer>> res, int[] nums, int count, int total, List<Integer> ans, boolean[] book) {
+        if (count == total) {
+            res.add(new LinkedList<>(ans));
+            return;
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            if (book[i] == false) {
+                book[i] = true;
+                ans.add(nums[i]);
+                dfs(res, nums, count + 1, total, ans, book);
+                book[i] = false;
+                ans.remove((Integer) nums[i]);
+            }
+        }
+    }
+}
+```
