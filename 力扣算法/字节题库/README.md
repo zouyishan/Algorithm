@@ -777,6 +777,81 @@ class Solution {
     }
 }
 ```
+二刷，堆排和快排实现第K个最大元素
+```java
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        return heapSort(nums, k);
+    }
+
+    public int find(int[] nums, int k, int l, int r) {
+        int mid = (l + r) >> 1;
+        int x = nums[mid];
+        int i = l, j = r;
+        while (i <= j) {
+            while (nums[j] < x) {
+                j--;
+            }
+            while (nums[i] > x) {
+                i++;
+            }
+            if (i <= j) {
+                int temp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp;
+                i++; j--;
+            }
+        }
+        if (k >= i) {
+            find(nums, k, i, r);
+        }
+        if (k <= j) {
+            find(nums, k, l, j);
+        }
+        return nums[k];
+    }
+
+    public void swap(int[] nums, int x, int y) {
+        int temp = nums[x];
+        nums[x] = nums[y];
+        nums[y] = temp;
+    }
+
+    public void shiftDown(int k, int[] nums, int total) {
+        boolean flag = false;
+        int res = 0;
+        while (k * 2 < total && flag == false) {
+            res = nums[k] > nums[k * 2] ? k * 2 : k;
+            if (k * 2 + 1 < total) {
+                res = nums[res] > nums[k * 2 + 1] ? k * 2 + 1 : res;
+            }
+            if (k == res) {
+                flag = true;
+            } else {
+                swap(nums, res, k);
+                k = res;
+            }
+        } 
+    }
+
+    public void construct(int[] nums, int k) {
+        for (int i = k / 2; i >= 0; i--) {
+            shiftDown(i, nums, k);
+        }
+    }
+
+    public int heapSort(int[] nums, int k) {
+        construct(nums, k);
+        for (int i = k; i < nums.length; i++) {
+            if (nums[0] < nums[i]) {
+                nums[0] = nums[i];
+                shiftDown(0, nums, k);
+            }
+        }
+        return nums[0];
+    }
+}
+```
 # 翻转链表
 题目链接：https://leetcode-cn.com/problems/reverse-linked-list/
 
@@ -850,16 +925,6 @@ class Solution {
 ```
 二刷K个一组翻转链表
 ```java
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
- */
 class Solution {
     public ListNode reverseKGroup(ListNode head, int k) {
         ListNode res = new ListNode(0), node = res;
