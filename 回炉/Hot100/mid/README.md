@@ -1,3 +1,23 @@
+# 盛水的容器
+双指针的题
+
+https://leetcode-cn.com/problems/container-with-most-water/
+```java
+class Solution {
+    public int maxArea(int[] height) {
+        int l = 0, r = height.length - 1, res = -1;
+        while (l < r) {
+            res = Math.max(Math.min(height[r], height[l]) * (r - l), res);
+            if (height[l] < height[r]) {
+                l++;
+            } else {
+                r--;
+            }
+        }
+        return res;
+    }
+}
+```
 # 跳跃游戏
 确实很难绷得住，写了个超过13.3%的。
 
