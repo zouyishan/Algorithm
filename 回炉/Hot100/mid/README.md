@@ -1,3 +1,36 @@
+# 岛屿数量
+经典dfs的 补一下：https://leetcode-cn.com/problems/number-of-islands/
+```java
+class Solution {
+    public static int[] startx = new int[] {1, -1, 0, 0};
+    public static int[] starty = new int[] {0, 0, 1, -1};
+    public int numIslands(char[][] grid) {
+        boolean[][] book = new boolean[grid.length][grid[0].length];
+
+        int res = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (book[i][j] == false && grid[i][j] == '1') {
+                    res++;
+                    dfs(book, grid, i, j);
+                }
+            }
+        }
+        return res;
+    }
+
+    public void dfs(boolean[][] book, char[][] grid, int x, int y) {
+        for (int i = 0; i <= 3; i++) {
+            int tempx = x + startx[i];
+            int tempy = y + starty[i];
+            if (tempx >= 0 && tempx < grid.length && tempy >= 0 && tempy < grid[0].length && book[tempx][tempy] == false && grid[tempx][tempy] == '1') {
+                book[tempx][tempy] = true;
+                dfs(book, grid, tempx, tempy);
+            }
+        }
+    }
+}
+```
 # 跳跃游戏
 初级版本，是否有环形链表的：https://leetcode-cn.com/problems/linked-list-cycle/
 ```java
