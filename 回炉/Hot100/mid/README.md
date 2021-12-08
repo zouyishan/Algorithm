@@ -1,3 +1,47 @@
+# 跳跃游戏
+确实很难绷得住，写了个超过13.3%的。
+
+https://leetcode-cn.com/problems/jump-game/
+```java
+class Solution {
+    public boolean canJump(int[] nums) {
+        if (nums.length <= 1) {
+            return true;
+        }
+        boolean[] book = new boolean[nums.length];
+        book[0] = true;
+        for (int i = 0; i < nums.length; i++) {
+            if (book[i] == true) {
+                if (nums[i] + i >= nums.length - 1) {
+                    return true;
+                }
+                for (int j = 1; j <= nums[i]; j++) {
+                    book[i + j] = true;
+                }
+            }
+        }
+        return false;
+    }
+}
+```
+聪明的解法
+```java
+class Solution {
+    public boolean canJump(int[] nums) {
+        int temp = 0;
+        for (int i = 0; i < nums.length; i++) {
+            temp = Math.max(nums[i] + i, temp);
+            if (temp + 1 >= nums.length) {
+                return true;
+            }
+            if (i == temp) {
+                return false;
+            }
+        }
+        return false;
+    }
+}
+```
 # 组合总和
 https://leetcode-cn.com/problems/combination-sum/
 
