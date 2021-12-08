@@ -1,3 +1,47 @@
+# 跳跃游戏
+初级版本，是否有环形链表的：https://leetcode-cn.com/problems/linked-list-cycle/
+```java
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        ListNode first = head, end = head;
+        while (end != null) {
+            if (end.next == null) break;
+            first = first.next;
+            end = end.next.next;
+            if (first == end) return true;
+        }
+        return false;
+    }
+}
+```
+进阶版的，找到环形链表的入口： https://leetcode-cn.com/problems/linked-list-cycle/
+```java
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+        if (head == null || head.next == null) {
+            return null;
+        }
+
+        ListNode slow = head, fast = head;
+        while (fast != null) {
+            if (fast.next == null) {
+                return null;
+            }
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow) {
+                ListNode cur = head;
+                while (cur != slow) {
+                    cur = cur.next;
+                    slow = slow.next;
+                }
+                return cur;
+            }
+        }
+        return null;
+    }
+}
+```
 # 盛水的容器
 双指针的题
 
