@@ -647,6 +647,29 @@ class Solution {
     }
 }
 ```
+哦 二刷，我越来越废物了啊..........
+```java
+class Solution {
+    public int maxProfit(int[] prices) {
+        if (prices.length == 1) {
+            return 0;
+        }
+        int res_ = 0, ans = 0;
+        int[] res = new int[prices.length - 1];
+        for (int i = 1; i < prices.length; i++) {
+            res[i - 1] = prices[i] - prices[i - 1];
+        }
+        for (int i = 0; i < prices.length - 1; i++) {
+            ans += res[i];
+            if (ans < 0) {
+                ans = 0;
+            }
+            res_ = res_ > ans ? res_ : ans;
+        }
+        return res_;
+    }
+}
+```
 &nbsp;
 # 三数之和
 题目链接：https://leetcode-cn.com/problems/3sum/
