@@ -27,9 +27,9 @@ class Solution {
         }
         
         if (lower) {
-            return right + 1;
+            return right + 1; // left
         } else {
-            return left - 1;
+            return left - 1; // right
         }
     }
 }
