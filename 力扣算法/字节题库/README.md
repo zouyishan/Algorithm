@@ -748,6 +748,49 @@ class LRUCache {
     }
 }
 ```
+我TM直接艹了，过了，好像又没过.......
+```java
+class LRUCache {
+    public Map<Integer, Integer> cache;
+    public List<Integer> list;
+    public int capacity;
+
+    public LRUCache(int capacity) {
+        cache = new HashMap<>();
+        this.capacity = capacity;
+        list = new LinkedList<>();
+    }
+    
+    public int get(int key) {
+        if (cache.containsKey(key)) {
+            list.remove((Integer) key);
+            list.add(0, key);
+            return cache.get(key);
+        }
+        return -1;
+    }
+    
+    public void put(int key, int value) {
+        if (cache.containsKey(key)) {
+            cache.put(key, value);
+            list.remove((Integer) key);
+            list.add(0, key);
+            return;
+        }
+
+        if (list.size() == this.capacity) {
+            cache.remove(list.get(list.size() - 1));
+            list.remove((int) list.size() - 1);
+            cache.put(key, value);
+            list.add(0, key);
+            return;
+        }
+        
+        cache.put(key, value);
+        list.add(0, key);
+    }
+}
+```
 # 数组中第K个最大元素
 题目链接：https://leetcode-cn.com/problems/kth-largest-element-in-an-array/
 
