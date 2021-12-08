@@ -705,6 +705,53 @@ class Solution {
     }
 }
 ```
+哎呀，艹了，就硬模拟，很烦
+```java
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> res = new LinkedList<>();
+        if (nums.length < 3) {
+            return res;
+        }
+        
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            int start = i + 1, end = nums.length - 1;
+            while (start < end) {
+                if (nums[start] + nums[end] + nums[i] == 0) {
+                    List<Integer> ans = new LinkedList<>();
+                    ans.add(nums[i]);
+                    ans.add(nums[start]);
+                    ans.add(nums[end]);
+                    res.add(ans);
+                    while (start + 1 < nums.length && nums[start] == nums[start + 1]) {
+                        start++;
+                    }
+                    while (end > 0 && nums[end] == nums[end - 1]) {
+                        end--;
+                    }
+                    start++; end--;
+                } else if (nums[start] + nums[end] + nums[i] < 0) {
+                    while (start + 1 < nums.length && nums[start] == nums[start + 1]) {
+                        start++;
+                    }
+                    start++;
+                } else {
+                    while (end > 0 && nums[end] == nums[end - 1]) {
+                        end--;
+                    }
+                    end--;
+                }
+            }
+
+        }
+        return res;
+    }
+}
+```
 # LRU缓存机制
 题目链接：https://leetcode-cn.com/problems/lru-cache/
 
