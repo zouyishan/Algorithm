@@ -1,3 +1,61 @@
+# 最长回文子串
+这里用的是马拉车算法,确实可以O(n)：https://leetcode-cn.com/problems/longest-palindromic-substring/
+```java
+class Solution {
+    public String longestPalindrome(String s) {
+        if (s.length() == 1) {
+            return s;
+        }
+
+        StringBuilder str = new StringBuilder("#");
+        for (int i = 0; i < s.length(); i++) {
+            str.append(s.charAt(i));
+            str.append('#');
+        }
+        s = str.toString();
+
+        int center = -1, right = -1, length = 0;
+        int start = 0, end = 0;
+        int[] record = new int[s.length()];
+        for (int i = 0; i < s.length(); i++) {
+            if (right >= i) {
+                int mirror = center * 2 - i;
+                int minLength = Math.min(record[mirror], right - i);
+                length = expand(s, i - minLength, i + minLength);
+            } else {
+                length = expand(s, i, i);
+            }
+
+            record[i] = length;
+            if (i + length > right) {
+                center = i;
+                right = i + length;
+            }
+
+            if (end - start < length * 2) {
+                start = i - length;
+                end = i + length;
+            }
+        }
+
+        String res = "";
+        for (int i = start; i <= end; i++) {
+            if (s.charAt(i) != '#') {
+                res += s.charAt(i);
+            }
+        }
+        return res;
+    }
+
+    public int expand(String s, int l, int r) {
+        while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) {
+            l--;
+            r++;
+        }
+        return (r - l - 2) / 2;
+    }
+}
+```
 # 岛屿数量
 经典dfs的 补一下：https://leetcode-cn.com/problems/number-of-islands/
 ```java
