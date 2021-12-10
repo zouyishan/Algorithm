@@ -22,6 +22,38 @@ class Solution {
     }
 }
 ```
+二刷，这题，真的搞不懂为什么title是困难？？？？
+```java
+class Solution {
+    int res = (1 << 31);
+    public int maxPathSum(TreeNode root) {
+        res = (1 << 31);
+        dfs(root);
+        return res;
+    }
+
+    public int dfs(TreeNode root) {
+        if (root != null) {
+            int left = dfs(root.left);
+            int right = dfs(root.right);
+            if (left >= 0 && right >= 0) {
+                if (res < left + right + root.val) {
+                    res = left + right + root.val;
+                }
+                return root.val + Math.max(left, right);
+            }
+            int left_ = left > 0 ? left : 0;
+            int right_ = right > 0 ? right : 0;
+            if (res < left_ + right_ + root.val) {
+                res = left_ + right_ + root.val;
+            }
+
+            return root.val + left_ + right_;
+        }
+        return 0;
+    }
+}
+```
 # 寻找两个正序数组的中位数
 一个看起来像easy的hard题目：
 https://leetcode-cn.com/problems/median-of-two-sorted-arrays/
