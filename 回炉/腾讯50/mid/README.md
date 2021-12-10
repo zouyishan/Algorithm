@@ -149,6 +149,54 @@ class Solution {
     }
 }
 ```
+这个大模拟了......二刷了
+```java
+class Solution {
+    public static int level = 0;
+    public ListNode rotateRight(ListNode head, int k) {
+        if (k == 0 || head == null || head.next == null) {
+            return head;
+        }
+
+        level = 0;
+        ListNode pos = null;
+        dfs(head, pos, k);
+        if (pos == null) {
+            k %= level;
+            if (k == 0) {
+                return head;
+            }
+            ListNode pre = null;
+            pos = head;
+            for (int i = 0; i < level - k; i++) {
+                pre = pos;
+                pos = pos.next;
+            }
+            pre.next = null;
+        }
+        getLast(pos).next = head;
+        return pos;
+    }
+
+    public void dfs(ListNode root, ListNode pos, int k) {
+        if (root == null) {
+            return;
+        }
+        dfs(root.next, pos, k);
+        level++;
+        if (level == k) {
+            pos = root;
+        }
+    }
+
+    public ListNode getLast(ListNode node) {
+        while (node.next != null) {
+            node = node.next;
+        }
+        return node;
+    }
+}
+```
 # 螺旋矩阵 II
 https://leetcode-cn.com/problems/spiral-matrix-ii/
 
