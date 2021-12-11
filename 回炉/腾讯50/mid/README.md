@@ -385,5 +385,22 @@ class Solution {
     }
 }
 ```
+真的菜啊.....真不敢相信我的代码居然能写成上面这样
+```java
+class Solution {
+    public int maxArea(int[] height) {
+        int l = 0, r = height.length - 1, res = -1;
+        while (l < r) {
+            res = Math.max(Math.min(height[r], height[l]) * (r - l), res);
+            if (height[l] < height[r]) {
+                l++;
+            } else {
+                r--;
+            }
+        }
+        return res;
+    }
+}
+```
 # 最接近的三数之和
 https://leetcode-cn.com/problems/3sum-cl
