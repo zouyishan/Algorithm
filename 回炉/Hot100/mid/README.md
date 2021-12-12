@@ -1,3 +1,27 @@
+# 不同的二叉搜索树
+是个dp哦，n个结点的二叉树的个数等于左边二叉树的数量乘上右边二叉树的数量。左边的二叉树为0的时候，右边的就为dp[n - 1]。同理右边的二叉树为0 的时候，左边的为dp[n - 1] : https://leetcode-cn.com/problems/unique-binary-search-trees/
+```java
+class Solution {
+    public int numTrees(int n) {
+        if (n == 1) {
+            return 1;
+        }
+
+        int[] dp = new int[n + 1];
+        dp[0] = 1;
+        dp[1] = 1;
+
+        for (int i = 2; i <= n; i++) {
+            int num = 0;
+            for (int j = 0; j < i; j++) {
+                num = num + (dp[i - j - 1] * dp[j]);
+            } 
+            dp[i] = num;
+        }
+        return dp[n];
+    }
+}
+```
 # 单词搜素
 经典的dfs啊: https://leetcode-cn.com/problems/word-search/
 ```java
