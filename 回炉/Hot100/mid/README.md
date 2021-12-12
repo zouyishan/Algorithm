@@ -1,3 +1,46 @@
+# 单词搜素
+经典的dfs啊: https://leetcode-cn.com/problems/word-search/
+```java
+class Solution {
+    public static int[] nextx = new int[]{1, -1, 0, 0};
+    public static int[] nexty = new int[]{0, 0, 1, -1};
+    public static boolean res = false;
+
+    public boolean exist(char[][] board, String word) {
+        res = false;
+        boolean[][] book = new boolean[board.length][board[0].length];
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (board[i][j] == word.charAt(0)) {
+                    book[i][j] = true;
+                    dfs(board, i, j, word, 1, book);
+                    book[i][j] = false;
+                }
+            }
+        }
+
+        return res;
+    }
+
+    public void dfs(char[][] board, int x, int y, String word, int count, boolean[][] book) {
+        if (count == word.length()) {
+            res = true;
+            return;
+        }
+
+        for (int i = 0; i < 4; i++) {
+            int tempx = x + nextx[i];
+            int tempy = y + nexty[i];
+            if (tempx >= 0 && tempx < board.length && tempy >= 0 && tempy < board[0].length && book[tempx][tempy] == false && board[tempx][tempy] == word.charAt(count)) {
+                book[tempx][tempy] = true;
+                dfs(board, tempx, tempy, word, count + 1, book);
+                book[tempx][tempy] = false;
+            }
+        }
+    }
+}
+```
+
 # 最长回文子串
 这里用的是马拉车算法,确实可以O(n)：https://leetcode-cn.com/problems/longest-palindromic-substring/
 ```java
