@@ -1,3 +1,25 @@
+# 单词拆分
+这TM的是个dp，我是万万没有想到的：https://leetcode-cn.com/problems/word-break/
+
+dp[i] 就表示i以前的都已经可以匹配了。然后我们要找可以匹配的就是找 dp[j] == true && s.substring(j, i)包含在wordDict中的。
+```java
+public class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        Set<String> wordDictSet = new HashSet(wordDict);
+        boolean[] dp = new boolean[s.length() + 1];
+        dp[0] = true;
+        for (int i = 1; i <= s.length(); i++) {
+            for (int j = 0; j < i; j++) {
+                if (dp[j] && wordDictSet.contains(s.substring(j, i))) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+        return dp[s.length()];
+    }
+}
+```
 # 二叉树展开为链表
 事实是，这道题不能用递归来做...........
 
