@@ -1,3 +1,31 @@
+# 二叉树展开为链表
+事实是，这道题不能用递归来做...........
+
+https://leetcode-cn.com/problems/flatten-binary-tree-to-linked-list/
+```java
+class Solution {
+    public void flatten(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        List<TreeNode> res = new LinkedList<>();
+        dfs(root, res);
+        for (int i = 1; i < res.size(); i++) {
+            root.right = res.get(i);
+            root.left = null;
+            root = root.right;
+        }
+    }
+
+    public void dfs(TreeNode root, List<TreeNode> list) {
+        if (root != null) {
+            list.add(root);
+            dfs(root.left, list);
+            dfs(root.right, list);
+        }
+    }
+}
+```
 # 不同的二叉搜索树
 是个dp哦，n个结点的二叉树的个数等于左边二叉树的数量乘上右边二叉树的数量。左边的二叉树为0的时候，右边的就为dp[n - 1]。同理右边的二叉树为0 的时候，左边的为dp[n - 1] : https://leetcode-cn.com/problems/unique-binary-search-trees/
 ```java
