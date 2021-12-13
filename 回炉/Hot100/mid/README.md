@@ -1,3 +1,42 @@
+# 电话号码的字母组合
+普普通通的递归：https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/
+```java
+class Solution {
+    public List<String> letterCombinations(String digits) {
+        List<String> ans = new LinkedList<>();
+        if (digits.length() == 0) {
+            return ans;
+        } 
+
+        List<List<Character>> res = new LinkedList<>();
+        for (int i = 0; i < 8; i++) {
+            res.add(new LinkedList<>());
+        }
+        res.get(0).addAll(Arrays.asList('a', 'b', 'c'));
+        res.get(1).addAll(Arrays.asList('d', 'e', 'f'));
+        res.get(2).addAll(Arrays.asList('g', 'h', 'i'));
+        res.get(3).addAll(Arrays.asList('j', 'k', 'l'));
+        res.get(4).addAll(Arrays.asList('m', 'n', 'o'));
+        res.get(5).addAll(Arrays.asList('p', 'q', 'r', 's'));
+        res.get(6).addAll(Arrays.asList('t', 'u', 'v'));
+        res.get(7).addAll(Arrays.asList('w', 'x', 'y', 'z'));
+
+        dfs(res, ans, digits, 0, "");
+        return ans;
+    }
+
+    public void dfs(List<List<Character>> res, List<String> ans, String digits, int count, String str) {
+        if (count == digits.length()) {
+            ans.add(str);
+            return;
+        }
+
+        for (int i = 0; i < res.get(digits.charAt(count) - '0' - 2).size(); i++) {
+            dfs(res, ans, digits, count + 1, str + res.get(digits.charAt(count) - '0' - 2).get(i));
+        }
+    }
+}
+```
 # 课程表
 典型的拓扑排序，dfs永远嘀神好吧: https://leetcode-cn.com/problems/course-schedule/
 ```java
