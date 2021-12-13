@@ -1,3 +1,51 @@
+# 课程表
+典型的拓扑排序，dfs永远嘀神好吧: https://leetcode-cn.com/problems/course-schedule/
+```java
+class Solution {
+    public static boolean valid = true;
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        if (numCourses == 1) {
+            return true;
+        }
+
+        List<List<Integer>> list = new LinkedList<>();
+        int[] book = new int[numCourses];
+
+        for (int i = 0; i < numCourses; i++) {
+            list.add(new LinkedList<>());
+        }
+
+        for (int i = 0; i < prerequisites.length; i++) {
+            list.get(prerequisites[i][1]).add(prerequisites[i][0]);
+        }
+        valid = true;
+        for (int i = 0; i < numCourses; i++) {
+            if (book[i] == 0) {
+                dfs(i, book, list);
+            }
+        }
+
+        return valid;
+    }
+
+    public void dfs(int x, int[] book, List<List<Integer>> list) {
+        book[x] = 1;
+        for (int i = 0; i < list.get(x).size(); i++) {
+            if (book[list.get(x).get(i)] == 0) {
+                book[list.get(x).get(i)] = 1;
+                dfs(list.get(x).get(i), book, list);
+                if (valid == false) {
+                    return;
+                }
+            } else if (book[list.get(x).get(i)] == 1) {
+                valid = false;
+                return;
+            }
+        }
+        book[x] = 2;
+    }
+}
+```
 # 颜色分类
 双指针哦: https://leetcode-cn.com/problems/sort-colors/
 ```java
