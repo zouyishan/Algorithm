@@ -1,3 +1,38 @@
+# 颜色分类
+双指针哦: https://leetcode-cn.com/problems/sort-colors/
+```java
+class Solution {
+    public void sortColors(int[] nums) {
+        if (nums.length == 1) {
+            return;
+        }
+
+        int l = 0, r = nums.length - 1;
+        change(nums, 1, change(nums, 0, l, r), nums.length - 1);
+    }
+
+    public int change(int[] nums, int value, int l, int r) {
+        while (l < r) {
+            while (l < r && nums[l] == value) {
+                l++;
+            }
+            while (l < r && nums[r] != value) {
+                r--;
+            }
+            if (l < r) {
+                swap(nums, l, r);
+            }
+        }
+        return r;
+    }
+
+    public void swap(int[] nums, int x, int y) {
+        int temp = nums[x];
+        nums[x] = nums[y];
+        nums[y] = temp;
+    }
+}
+```
 # 单词拆分
 这TM的是个dp，我是万万没有想到的：https://leetcode-cn.com/problems/word-break/
 
