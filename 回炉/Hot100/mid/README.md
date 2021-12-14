@@ -1,3 +1,51 @@
+# 零钱兑换
+https://leetcode-cn.com/problems/coin-change/
+
+先用记忆化搜索，你会发现要炸
+```java
+class Solution {
+    public static int res = (1 << 31) - 1;
+    public int coinChange(int[] coins, int amount) {
+        res = (1 << 31) - 1;
+        dfs(coins, amount, 0, 0);
+        res = res == (1 << 31) - 1 ? -1 : res;
+        return res;
+    }
+
+    public void dfs(int[] coins, int amount, int count, int num) {
+        if (amount == 0) {
+            res = Math.min(res, count);
+            return;
+        }
+        if (num >= coins.length) {
+            return;
+        }
+        dfs(coins, amount, count, num + 1);
+
+        if (coins[num] <= amount) {
+            dfs(coins, amount - coins[num], count + 1, num);
+        }
+    }
+}
+```
+然后就必须要用这个魔法的dp了
+```java
+class Solution {
+    public int coinChange(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, amount + 1);
+        dp[0] = 0;
+        for (int i = 1; i <= amount; i++) {
+            for (int j = 0; j < coins.length; j++) {
+                if (coins[j] <= i) {
+                    dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);
+                }
+            }
+        }
+        return dp[amount] > amount ? -1 : dp[amount];
+    }
+}
+```
 # 字母异位词分组
 用hash....这是我没想到的: https://leetcode-cn.com/problems/group-anagrams/
 ```java
