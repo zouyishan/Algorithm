@@ -1,3 +1,35 @@
+# 复杂链表的复制
+注意用好哈希表就可以: https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/
+```java
+class Solution {
+    public Node copyRandomList(Node head) {
+        if (head == null) {
+            return null;
+        }
+
+        Map<Node, Node> map = new HashMap<>();
+        Node res = new Node(head.val);
+        Node head1 = res, head2 = head, ans = res;
+        map.put(head, res);
+        while (head.next != null) {
+            res.next = new Node(head.next.val);
+            map.put(head.next, res.next);
+            res = res.next;
+            head = head.next;
+        }
+
+        while (head2 != null) {
+            if (head2.random != null) {
+                head1.random = map.get(head2.random);
+            }
+            head2 = head2.next;
+            head1 = head1.next;
+        }
+
+        return ans;
+    }
+}
+```
 # 数值的整数次方
 快速幂：https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof/
 ```java
