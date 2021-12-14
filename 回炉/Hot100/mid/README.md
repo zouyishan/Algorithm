@@ -1,3 +1,41 @@
+# 打家劫舍Ⅱ
+很艹的一个dp.......想了很多种方法和情况发现行不通，一看题解忽略第一个或者最后一个可以直接用范围体现
+
+当没有第一个元素的时候可以dp到num.length - 1的位置
+
+当有第一个元素的时候可以dp到num.length - 2的位置
+```java
+class Solution {
+    public int rob(int[] nums) {
+        if (nums.length == 1) {
+            return nums[0];
+        } else if (nums.length == 2) {
+            return Math.max(nums[1], nums[0]);
+        }
+
+        int res1 = 0, res2 = 0;
+        int[][] dp1 = new int[nums.length][2];
+        dp1[0][0] = nums[0];
+
+        for (int i = 1; i < nums.length - 1; i++) {
+            dp1[i][0] = Math.max(dp1[i][0], dp1[i - 1][1] + nums[i]);
+            dp1[i][1] = Math.max(dp1[i - 1][1], dp1[i - 1][0]);
+        }
+        res1 = Math.max(dp1[nums.length - 2][0], dp1[nums.length - 2][1]);
+
+        int[][] dp2 = new int[nums.length][2];
+        dp2[1][0] = nums[1];
+
+        for (int i = 2; i < nums.length; i++) {
+            dp2[i][0] = Math.max(dp2[i][0], dp2[i - 1][1] + nums[i]);
+            dp2[i][1] = Math.max(dp2[i - 1][1], dp2[i - 1][0]);
+        }
+        res2 = Math.max(dp2[nums.length - 1][0], dp2[nums.length - 1][1]);
+
+        return Math.max(res1, res2);
+    }
+}
+```
 # 打家劫舍
 dp完全自己做的，还行吧https://leetcode-cn.com/problems/house-robber/
 ```java
