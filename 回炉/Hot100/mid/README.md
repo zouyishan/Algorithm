@@ -4,6 +4,8 @@
 当没有第一个元素的时候可以dp到num.length - 1的位置
 
 当有第一个元素的时候可以dp到num.length - 2的位置
+
+https://leetcode-cn.com/problems/house-robber-ii/
 ```java
 class Solution {
     public int rob(int[] nums) {
