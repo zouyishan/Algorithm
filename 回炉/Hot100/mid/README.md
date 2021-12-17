@@ -1,3 +1,25 @@
+# 最长公共子序列
+记住了就好说吧
+https://leetcode-cn.com/problems/longest-common-subsequence/
+```java
+class Solution {
+    public int longestCommonSubsequence(String text1, String text2) {
+        int res = (1 << 31);
+        int[][] dp = new int[text1.length() + 1][text2.length() + 1];
+        for (int i = 1; i <= text1.length(); i++) {
+            for (int j = 1; j <= text2.length(); j++) {
+                if (text1.charAt(i - 1) == text2.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                } else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                }
+                res = res > dp[i][j] ? res : dp[i][j];
+            }
+        }
+        return res;
+    }
+}
+```
 # 打家劫舍Ⅱ
 很艹的一个dp.......想了很多种方法和情况发现行不通，一看题解忽略第一个或者最后一个可以直接用范围体现
 
