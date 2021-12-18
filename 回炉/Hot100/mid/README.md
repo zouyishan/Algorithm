@@ -1,3 +1,129 @@
+# 堆排，快排，归并排，桶排汇总
+https://leetcode-cn.com/problems/sort-an-array/
+```java
+class Solution {
+    public static int[] res = null;
+    public int[] sortArray(int[] nums) {
+        // res = new int[100009];
+        int[] ans = new int[nums.length];
+        // merge(nums, 0, nums.length - 1);
+        // quickSort(nums, 0, nums.length - 1);
+        // heapsort(nums);
+        // for (int i = 0; i < nums.length; i++) {
+        //     res[nums[i] + 50000]++;
+        // }
+        // int count = 0;
+        // for (int i = 0; i <= 100000; i++) {
+        //     if (count == nums.length) {
+        //         break;
+        //     }
+        //     while (res[i] != 0) {
+        //         ans[count++] = i - 50000;
+        //         res[i]--;
+        //     }
+        // }
+        Arrays.sort(nums);
+        return nums;
+    }
+
+    public void quickSort(int[] nums, int l, int r) {
+        if (l < r) {
+            int mid = (l + r) >> 1;
+            int x = nums[mid];
+            int i = l, j = r;
+            while (i <= j) {
+                while (x > nums[i]) {
+                    i++;
+                }
+                while (x < nums[j]) {
+                    j--;
+                }
+                if (i <= j) {
+                    int temp = nums[i];
+                    nums[i] = nums[j];
+                    nums[j] = temp;
+                    i++; j--;
+                }
+            }
+
+            quickSort(nums, l, j);
+            quickSort(nums, i, r);
+        }
+    }
+
+    public void merge(int[] nums, int l, int r) {
+        if (l >= r) {
+            return;
+        }
+
+        int mid = (l + r) >> 1;
+        merge(nums, l, mid);
+        merge(nums, mid + 1, r);
+        int i = l, j = mid + 1, count = l;
+        while (i <= mid && j <= r) {
+            if (nums[i] < nums[j]) {
+                res[count++] = nums[i++];
+            } else {
+                res[count++] = nums[j++];
+            }
+        } 
+        while (i <= mid) {
+            res[count++] = nums[i];
+            i++;
+        }
+        while (j <= r) {
+            res[count++] = nums[j];
+            j++;
+        }
+
+        for (int k = l; k <= r; k++) {
+            nums[k] = res[k];
+        }
+    }
+
+    public void shift(int[] nums, int i) {
+        int temp = 0;
+        boolean flag = false;
+        while (i * 2 < nums.length && !flag) {
+            temp = nums[i] < nums[i * 2] ? i : i * 2;
+            if (i * 2 + 1 < nums.length) {
+                temp = nums[temp] < nums[i * 2 + 1] ? temp : i * 2 + 1;
+            }
+            if (temp == i) {
+                flag = true;
+            } else {
+                int x = nums[temp];
+                nums[temp] = nums[i];
+                nums[i] = x;
+                i = temp;
+            }
+        }
+    }
+
+    public void construct(int[] nums, int n) {
+        for (int i = n / 2; i >= 0; i--) {
+            shift(nums, i);
+        }
+    }
+
+    public int getMin(int[] nums, int which) {
+        int res = nums[0];
+        nums[0] = nums[which];
+        nums[which] = (1 << 31) - 1;
+        shift(nums, 0);
+        return res;
+    }
+
+    public void heapsort(int[] nums) {
+        construct(nums, nums.length);
+        int count = 0, length = nums.length;
+        while (length-- != 0) {
+            res[count] = getMin(nums, nums.length - 1 - count);
+            count++;
+        }
+    }
+}
+```
 # 最长公共子序列
 记住了就好说吧
 https://leetcode-cn.com/problems/longest-common-subsequence/
