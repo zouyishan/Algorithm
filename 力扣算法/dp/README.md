@@ -1,4 +1,5 @@
 目录：
+* [最小路径和](#最小路径和)
 * [完全平方数](#完全平方数)
 * [最长公共字串](#最长公共字串)
 * [最长递增子序列](#最长递增子序列)
@@ -44,6 +45,7 @@ class Solution {
     }
 }
 ```
+
 # 最长公共子串
 题目连接：https://leetcode-cn.com/problems/maximum-length-of-repeated-subarray/submissions/
 
