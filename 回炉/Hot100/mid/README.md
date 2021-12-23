@@ -1,3 +1,74 @@
+# 将二叉搜索树转化为排序的双向链表
+临时抱佛脚，先遍历，然后再转换
+```java
+class Solution {
+    public Node treeToDoublyList(Node root) {
+        if (root == null) {
+            return root;
+        }
+
+        List<Node> list = new LinkedList<>();
+        dfs(root, list);
+        list.get(0).left = list.get(list.size() - 1);
+        list.get(list.size() - 1).right = list.get(0);
+
+        for (int i = 1; i < list.size(); i++) {
+            list.get(i).left = list.get(i - 1);
+            list.get(i - 1).right =  list.get(i);
+        }
+
+        return list.get(0);
+    }
+
+    public void dfs(Node root, List<Node> list) {
+        if (root != null) {
+            dfs(root.left, list);
+            list.add(root);
+            dfs(root.right, list);
+        }
+    }
+}
+```
+或者可以直接这样：
+```java
+class Solution {
+  // the smallest (first) and the largest (last) nodes
+  Node first = null;
+  Node last = null;
+
+  public void helper(Node node) {
+    if (node != null) {
+      // left
+      helper(node.left);
+      // node 
+      if (last != null) {
+        // link the previous node (last)
+        // with the current one (node)
+        last.right = node;
+        node.left = last;
+      }
+      else {
+        // keep the smallest node
+        // to close DLL later on
+        first = node;
+      }
+      last = node;
+      // right
+      helper(node.right);
+    }
+  }
+
+  public Node treeToDoublyList(Node root) {
+    if (root == null) return null;
+
+    helper(root);
+    // close DLL
+    last.right = first;
+    first.left = last;
+    return first;
+  }
+}
+```
 # 前缀树
 
 ```java
