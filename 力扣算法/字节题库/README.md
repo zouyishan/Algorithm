@@ -1060,6 +1060,60 @@ class Solution {
 
 思路：递归，这里我开始想的优点麻烦了，主要不知道res里面的List数组怎么加，其实就加上一个空就行了啊！！！！ 然后我们在去空数组里面添加数据就行了 yes！
 
+这样写吧........
+```java
+public class temp {
+    public static class TreeNode {
+        TreeNode left;
+        TreeNode right;
+        int val;
+
+        public TreeNode(int val) {
+            this.val = val;
+        }
+    }
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(1);
+        root.left = new TreeNode(3);
+        root.right = new TreeNode(2);
+        TreeNode rootLeft = root.left;
+        TreeNode rootRight = root.right;
+        rootLeft.left = new TreeNode(5);
+        rootLeft.right = new TreeNode(8);
+        rootRight.left = new TreeNode(11);
+        List<List<Integer>> res = new LinkedList<>();
+        dfs(0, root, res);
+
+        for (int i = 0; i < res.size(); i++) {
+            for (int j = 0; j < res.get(i).size(); j++) {
+                System.out.print(res.get(i).get(j) + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void dfs(int level, TreeNode node, List<List<Integer>> res) {
+        if (node == null) {
+            return;
+        }
+
+        if (res.size() <= level) {
+            res.add(new LinkedList<>());
+        }
+
+        if (level % 2 == 0) {
+            res.get(level).add(node.val);
+        } else {
+            res.get(level).add(0, node.val);
+        }
+
+        dfs(level + 1, node.left, res);
+        dfs(level + 1, node.right, res);
+    }
+}
+```
+下面的ans好多余啊.......受不了
 ```java
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
