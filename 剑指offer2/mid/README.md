@@ -1,10 +1,39 @@
 善用ctrl + f：
+* [数组中数字出现的次数](#数组中数字出现的次数)
 * [二叉树中和为某一值的路径](#二叉树中和为某一值的路径)
 * [数字序列中某一位的数字](#数字序列中某一位的数字)
 * [复杂链表的复制](#复杂链表的复制)
 * [数值的整数次方](#数值的整数次方)
 * [矩阵中的路径](#矩阵中的路径)
 * [二维数组中查找](#二维数组中查找)
+
+# 数组中数字出现的次数
+https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof/
+
+异或用的很好。要好好学学
+```go
+func singleNumbers(nums []int) []int {
+    res := 0
+    for _, k := range nums {
+        res ^= k
+    }
+    pos := 1
+    for (pos & res) == 0 {
+        pos <<= 1
+    }
+
+    a, b := 0, 0
+    for _, k := range nums {
+        if k & pos == 0 {
+            a ^= k
+        } else {
+            b ^= k
+        } 
+    }
+
+    return []int{a, b}
+}
+```
 
 # 二叉树中和为某一值的路径
 https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/
