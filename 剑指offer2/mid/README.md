@@ -1,8 +1,37 @@
 善用ctrl + f：
+* [数字序列中某一位的数字](#数字序列中某一位的数字)
 * [复杂链表的复制](#复杂链表的复制)
 * [数值的整数次方](#数值的整数次方)
 * [矩阵中的路径](#矩阵中的路径)
 * [二维数组中查找](#二维数组中查找)
+
+# 数字序列中某一位的数字
+https://leetcode-cn.com/problems/shu-zi-xu-lie-zhong-mou-yi-wei-de-shu-zi-lcof/
+
+模拟，哎 没敢想出来
+```go
+func findNthDigit(n int) int {
+    if n == 0 {
+        return 0
+    }
+
+    start, digital, count := 1, 1, 9
+    
+    for n > count {
+        n -= count
+        digital++
+        start *= 10
+        count = 9 * start * digital
+    }
+
+    k := start + (n - 1) / digital
+    index := (n - 1) % digital
+
+    numStr := strconv.Itoa(k)
+
+    return int(numStr[index] - '0')
+}
+```
 # 复杂链表的复制
 注意用好哈希表就可以: https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/
 ```java
