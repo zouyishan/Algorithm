@@ -1,10 +1,38 @@
 善用ctrl + f：
+* [二叉树中和为某一值的路径](#二叉树中和为某一值的路径)
 * [数字序列中某一位的数字](#数字序列中某一位的数字)
 * [复杂链表的复制](#复杂链表的复制)
 * [数值的整数次方](#数值的整数次方)
 * [矩阵中的路径](#矩阵中的路径)
 * [二维数组中查找](#二维数组中查找)
 
+# 二叉树中和为某一值的路径
+https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/
+
+学习下go的语法
+```go
+func pathSum(root *TreeNode, target int) [][]int {
+    res := [][]int{}
+    ans := []int{}
+
+    var dfs func(*TreeNode, int)
+    dfs = func(root *TreeNode, target int) {
+        if root != nil {
+            target -= root.Val
+            ans = append(ans, root.Val)
+            defer func() {ans = ans[:len(ans) - 1]}()
+            if root.Left == nil && root.Right == nil && target == 0 {
+                res = append(res, append([]int{}, ans...))
+                return
+            }
+            dfs(root.Left, target)
+            dfs(root.Right, target)
+        }
+    }
+    dfs(root, target)
+    return res
+}
+```
 # 数字序列中某一位的数字
 https://leetcode-cn.com/problems/shu-zi-xu-lie-zhong-mou-yi-wei-de-shu-zi-lcof/
 
