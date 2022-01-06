@@ -1,4 +1,5 @@
 善用ctrl + f：
+* [把数组排成最小的数](#把数组排成最小的数)
 * [数组中数字出现的次数](#数组中数字出现的次数)
 * [二叉树中和为某一值的路径](#二叉树中和为某一值的路径)
 * [数字序列中某一位的数字](#数字序列中某一位的数字)
@@ -6,6 +7,26 @@
 * [数值的整数次方](#数值的整数次方)
 * [矩阵中的路径](#矩阵中的路径)
 * [二维数组中查找](#二维数组中查找)
+
+# 把数组排成最小的数
+https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/
+
+论如何用好参数的重要性
+```go
+func minNumber(nums []int) string {
+    sort.Slice(nums, func(i, j int) bool {
+        x := strconv.Itoa(nums[i]) + strconv.Itoa(nums[j])
+        y := strconv.Itoa(nums[j]) + strconv.Itoa(nums[i])
+        return x < y
+    })
+
+    res := ""
+    for _, k := range nums {
+        res += strconv.Itoa(k)
+    }
+    return res
+}
+```
 
 # 数组中数字出现的次数
 https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof/
