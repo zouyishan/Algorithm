@@ -1,4 +1,5 @@
 善用ctrl + f：
+* [礼物的最大价值](#礼物的最大价值)
 * [把数组排成最小的数](#把数组排成最小的数)
 * [数组中数字出现的次数](#数组中数字出现的次数)
 * [二叉树中和为某一值的路径](#二叉树中和为某一值的路径)
@@ -8,6 +9,35 @@
 * [矩阵中的路径](#矩阵中的路径)
 * [二维数组中查找](#二维数组中查找)
 
+# 礼物的最大价值
+https://leetcode-cn.com/problems/li-wu-de-zui-da-jie-zhi-lcof/
+
+又是一个dp
+```go
+func maxValue(grid [][]int) int {
+    n := len(grid)
+    m := len(grid[0])
+
+    dp := make([][]int, n + 1)
+    for i := 0; i < len(dp); i++ {
+        dp[i] = make([]int, m + 1)
+    }
+
+    max := func(a, b int) int {
+        if a > b {
+            return a
+        }
+        return b
+    }
+
+    for i := 1; i <= n; i++ {
+        for j := 1; j <= m; j++ {
+            dp[i][j] = max(dp[i][j - 1], dp[i - 1][j]) + grid[i - 1][j - 1]
+        }
+    }
+    return dp[n][m]
+}
+```
 # 把数组排成最小的数
 https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/
 
