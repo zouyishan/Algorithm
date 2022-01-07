@@ -1,4 +1,5 @@
 善用ctrl + f：
+* [无重复字符的最长子串](#无重复字符的最长子串)
 * [礼物的最大价值](#礼物的最大价值)
 * [把数组排成最小的数](#把数组排成最小的数)
 * [数组中数字出现的次数](#数组中数字出现的次数)
@@ -9,6 +10,33 @@
 * [矩阵中的路径](#矩阵中的路径)
 * [二维数组中查找](#二维数组中查找)
 
+# 无重复字符的最长子串
+https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/
+
+小模拟，用go谢谢回回味道
+```go
+func lengthOfLongestSubstring(s string) int {
+    a := make([]int, 200)
+    ans := 0
+    res := 0
+    for i := range s {
+        if a[s[i] - 'a' + 80] == 0 {
+            ans++
+        } else {
+            if i + 1 - a[s[i] - 'a' + 80] > ans {
+                ans++
+            } else {
+                ans = i + 1 - a[s[i] - 'a' + 80]
+            }
+        }
+        a[s[i] - 'a' + 80] = i + 1
+        if ans > res {
+            res = ans
+        }
+    }
+    return res
+}
+```
 # 礼物的最大价值
 https://leetcode-cn.com/problems/li-wu-de-zui-da-jie-zhi-lcof/
 
