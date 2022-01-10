@@ -1,4 +1,5 @@
 善用ctrl + f：
+* [丑数](#丑数)
 * [把字符串转换成整数](#把字符串转换成整数)
 * [无重复字符的最长子串](#无重复字符的最长子串)
 * [礼物的最大价值](#礼物的最大价值)
@@ -10,6 +11,50 @@
 * [数值的整数次方](#数值的整数次方)
 * [矩阵中的路径](#矩阵中的路径)
 * [二维数组中查找](#二维数组中查找)
+
+# 丑数
+https://leetcode-cn.com/problems/chou-shu-lcof/
+
+dp，不能枚举k，要枚举第n个数
+```go
+func nthUglyNumber(n int) int {
+    dp := make([]int, n + 1)
+    dp[1] = 1
+    p1, p2, p3 := 1, 1, 1
+    max := func(a, b, c int) int {
+        if a >= b {
+            if b >= c {
+                return c
+            } else {
+                return b
+            }
+        } else {
+            if a >= c {
+                return c
+            } else {
+                return a
+            }
+        }
+    }
+
+    for i := 2; i <= n; i++ {
+        ans1, ans2, ans3 := dp[p1] * 2, dp[p2] * 3, dp[p3] * 5
+        num := max(ans1, ans2, ans3)
+        
+        dp[i] = num
+        if num == ans1 {
+            p1++
+        }
+        if num == ans2 {
+            p2++
+        }
+        if num == ans3 {
+            p3++
+        }
+    }
+    return dp[n]
+}
+```
 
 # 把字符串转换成整数
 https://leetcode-cn.com/problems/ba-zi-fu-chuan-zhuan-huan-cheng-zheng-shu-lcof/
