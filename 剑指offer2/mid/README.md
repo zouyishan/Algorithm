@@ -1,4 +1,5 @@
 善用ctrl + f：
+* [把字符串转换成整数](#把字符串转换成整数)
 * [无重复字符的最长子串](#无重复字符的最长子串)
 * [礼物的最大价值](#礼物的最大价值)
 * [把数组排成最小的数](#把数组排成最小的数)
@@ -10,6 +11,45 @@
 * [矩阵中的路径](#矩阵中的路径)
 * [二维数组中查找](#二维数组中查找)
 
+# 把字符串转换成整数
+https://leetcode-cn.com/problems/ba-zi-fu-chuan-zhuan-huan-cheng-zheng-shu-lcof/
+
+go渐入佳境，注意这个无符号直接赋值的情况，因为它可以表示的值太大了
+```go
+func strToInt(str string) int {
+    if len(str) == 0 {
+        return 0
+    }
+    count, sig := 0, 1
+    for count < len(str) && str[count] == ' ' {
+        count++
+    }
+    if count < len(str) && str[count] == '-' {
+        sig = -1
+        count++
+    } else if count < len(str) && str[count] == '+' {
+        sig = 1
+        count++
+    }
+
+    ans := 0
+    for count < len(str) && str[count] <= '9' && str[count] >= '0' {
+        ans = ans * 10 + int(str[count] - '0')
+        count++
+        if sig == -1 {
+            if ans >= 1 << 31 {
+                return (1 << 31) * -1
+            }
+        } else {
+            if ans > ((1 << 31) - 1) {
+                return (1 << 31) - 1
+            }
+        }
+    }
+    
+    return ans * sig
+}
+```
 # 无重复字符的最长子串
 https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/
 
