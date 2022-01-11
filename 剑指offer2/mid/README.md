@@ -1,4 +1,5 @@
 善用ctrl + f：
+* [把数字翻译成字符串](#把数字翻译成字符串)
 * [丑数](#丑数)
 * [把字符串转换成整数](#把字符串转换成整数)
 * [无重复字符的最长子串](#无重复字符的最长子串)
@@ -12,6 +13,32 @@
 * [矩阵中的路径](#矩阵中的路径)
 * [二维数组中查找](#二维数组中查找)
 
+# 把数字翻译成字符串
+https://leetcode-cn.com/problems/ba-shu-zi-fan-yi-cheng-zi-fu-chuan-lcof/
+
+这个dp和爬楼梯的dp有什么区别吗？？？？
+```java
+class Solution {
+    public int translateNum(int num) {
+        String str = String.valueOf(num);
+
+        int[] dp = new int[str.length() + 1];
+        dp[1] = 1;
+        dp[0] = 1;
+
+        for (int i = 2; i <= str.length(); i++) {
+            String temp = str.substring(i - 2, i);
+            if (temp.compareTo("25") <= 0 && temp.compareTo("10") >= 0) {
+                dp[i] = dp[i - 1] + dp[i - 2];
+            } else {
+                dp[i] = dp[i - 1];
+            }
+        }
+
+        return dp[str.length()];
+    }
+}
+```
 # 丑数
 https://leetcode-cn.com/problems/chou-shu-lcof/
 
