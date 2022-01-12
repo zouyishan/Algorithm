@@ -1,4 +1,5 @@
 善用ctrl + f：
+* [数组中数字出现的次数 II](#数组中数字出现的次数 II)
 * [把数字翻译成字符串](#把数字翻译成字符串)
 * [丑数](#丑数)
 * [把字符串转换成整数](#把字符串转换成整数)
@@ -12,6 +13,38 @@
 * [数值的整数次方](#数值的整数次方)
 * [矩阵中的路径](#矩阵中的路径)
 * [二维数组中查找](#二维数组中查找)
+
+# 数组中数字出现的次数 II
+https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof/
+
+直接用位运算
+```java
+class Solution {
+    public int singleNumber(int[] nums) {
+        int[] count = new int[33];
+        for (int i = 0; i < nums.length; i++) {
+            get(count, nums[i]);
+        }
+        for (int i = 0; i <= 32; i++) {
+            count[i] %= 3;
+        }
+        int res = 0, k = 0;
+        for (int i = 0; i <= 32; i++) {
+            // System.out.println(count[i]);
+            res += Math.pow(2, k) * count[i];
+            k++;
+        }
+        return res;
+    }
+    public static void get(int[] count, int val) {
+        int k = 0;
+        while (val != 0) {
+            count[k++] += (val & 1);
+            val >>= 1;
+        }
+    }
+}
+```
 
 # 把数字翻译成字符串
 https://leetcode-cn.com/problems/ba-shu-zi-fan-yi-cheng-zi-fu-chuan-lcof/
