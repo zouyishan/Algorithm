@@ -122,3 +122,30 @@ class Solution {
     }
 }
 ```
+
+# 分发糖果
+https://leetcode-cn.com/problems/candy/
+```java
+class Solution {
+    public int candy(int[] ratings) {
+        int res = 1, pre = 1, des = 0, inc = 1;
+
+        for (int i = 1; i < ratings.length; i++) {
+            if (ratings[i] >= ratings[i - 1]) {
+                des = 0;
+                pre = ratings[i] == ratings[i - 1] ? 1 : pre + 1;
+                res += pre;
+                inc = pre;
+            } else {
+                des++;
+                if (inc == des) {
+                    des++;
+                }
+                res += des;
+                pre = 1;
+            }
+        }
+        return res;
+    }
+}
+```
