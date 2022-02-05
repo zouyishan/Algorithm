@@ -1,3 +1,8 @@
+* [编辑距离](#编辑距离)
+* [马拉车最长回文子串](#马拉车最长回文子串)
+* [设计跳表](#设计跳表)
+* [KMP字符串匹配算法](#KMP字符串匹配算法)
+
 # 编辑距离
 https://leetcode-cn.com/problems/edit-distance/
 
@@ -52,7 +57,65 @@ class Solution {
 ```
 
 # 马拉车最长回文子串
+![image](https://user-images.githubusercontent.com/57765968/152648419-29d2130c-a5fc-4d9a-ac62-c9aeffd7e8bb.png)
+着重理解中心点center，和最大距离right，和对应的record[i]的length长度。
+```java
+class Solution {
+    public String longestPalindrome(String s) {
+        if (s.length() == 1) {
+            return s;
+        }
 
+        StringBuilder str = new StringBuilder("#");
+        for (int i = 0; i < s.length(); i++) {
+            str.append(s.charAt(i));
+            str.append('#');
+        }
+        s = str.toString();
+
+        int center = -1, right = -1, length = 0;
+        int start = 0, end = 0;
+        int[] record = new int[s.length()];
+        for (int i = 0; i < s.length(); i++) {
+            if (right >= i) {
+                int mirror = center * 2 - i;
+                // 这里的minLength一定要和right - i比较
+                int minLength = Math.min(record[mirror], right - i);
+                length = expand(s, i - minLength, i + minLength);
+            } else {
+                length = expand(s, i, i);
+            }
+
+            record[i] = length;
+            if (i + length > right) {
+                center = i;
+                right = i + length;
+            }
+
+            if (end - start < length * 2) {
+                start = i - length;
+                end = i + length;
+            }
+        }
+
+        String res = "";
+        for (int i = start; i <= end; i++) {
+            if (s.charAt(i) != '#') {
+                res += s.charAt(i);
+            }
+        }
+        return res;
+    }
+
+    public int expand(String s, int l, int r) {
+        while (l >= 0 && r < s.length() && s.charAt(l) == s.charAt(r)) {
+            l--;
+            r++;
+        }
+        return (r - l - 2) / 2;
+    }
+}
+```
 
 # 设计跳表
 https://leetcode-cn.com/problems/design-skiplist/
@@ -148,6 +211,51 @@ class Skiplist {
             this.value = value;
             this.next = new Node[size];
         }
+    }
+}
+```
+
+# KMP字符串匹配算法
+https://leetcode-cn.com/problems/implement-strstr/
+
+当匹配不到对应的字符串时，不是从头开始进行匹配，而是找`next[k - 1]`进行匹配。
+```java
+class Solution {
+    public int strStr(String haystack, String needle) {
+        if (needle.length() == 0) {
+            return 0;
+        }
+        if (haystack.length() == 0) {
+            return -1;
+        }
+
+        int[] next = new int[needle.length()];
+        int k = 0;
+        for (int i = 1; i < needle.length(); i++) {
+            while (k > 0 && needle.charAt(i) != needle.charAt(k)) {
+                k = next[k - 1];
+            }
+            if (needle.charAt(i) == needle.charAt(k)) {
+                k++;
+            }
+            next[i] = k;
+        }
+
+        k = 0;
+        for (int i = 0; i < haystack.length(); i++) {
+            while (k > 0 && haystack.charAt(i) != needle.charAt(k)) {
+                k = next[k - 1];
+            }
+            
+            if (needle.charAt(k) == haystack.charAt(i)) {
+                k++;
+                if (k == needle.length()) {
+                    return i - k + 1;    
+                }
+                continue;
+            }
+        }
+        return -1;
     }
 }
 ```
