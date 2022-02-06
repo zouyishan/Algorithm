@@ -2,6 +2,7 @@
 * [马拉车最长回文子串](#马拉车最长回文子串)
 * [设计跳表](#设计跳表)
 * [KMP字符串匹配算法](#KMP字符串匹配算法)
+* [多线程打印ABC](#多线程打印ABC)
 
 # 编辑距离
 https://leetcode-cn.com/problems/edit-distance/
@@ -256,6 +257,45 @@ class Solution {
             }
         }
         return -1;
+    }
+}
+```
+
+# 多线程打印ABC
+
+```java
+public class ThreadTest implements Runnable {
+    public static volatile int tag = 0;
+    public static Object obj = new Object();
+    public String str;
+    public int flag;
+    public ThreadTest(String str, int flag) {
+        this.str = str;
+        this.flag = flag;
+    }
+
+    public static void main(String[] args) {
+        new Thread(new ThreadTest("B", 2)).start();
+        new Thread(new ThreadTest("A", 1)).start();
+        new Thread(new ThreadTest("C", 3)).start();
+    }
+
+    @Override
+    public void run() {
+        synchronized (obj) {
+            for (int i = 0; i < 10; i++) {
+                while (this.flag != tag + 1) {
+                    try {
+                        obj.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                System.out.println(this.str);
+                tag = (tag + 1) % 3;
+                obj.notifyAll();
+            }
+        }
     }
 }
 ```
