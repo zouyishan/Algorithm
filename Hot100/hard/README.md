@@ -125,25 +125,30 @@ class Solution {
 
 # 分发糖果
 https://leetcode-cn.com/problems/candy/
+
+左边满足和右边满足的最大值，那就都能满足
 ```java
 class Solution {
     public int candy(int[] ratings) {
-        int res = 1, pre = 1, des = 0, inc = 1;
-
-        for (int i = 1; i < ratings.length; i++) {
-            if (ratings[i] >= ratings[i - 1]) {
-                des = 0;
-                pre = ratings[i] == ratings[i - 1] ? 1 : pre + 1;
-                res += pre;
-                inc = pre;
+        int[] left = new int[ratings.length];
+        int[] right = new int[ratings.length];
+        int res = 0;
+        for (int i = 0; i < ratings.length; i++) {
+            if (i > 0 && ratings[i] - ratings[i - 1] > 0) {
+                left[i] = left[i - 1] + 1;
             } else {
-                des++;
-                if (inc == des) {
-                    des++;
-                }
-                res += des;
-                pre = 1;
+                left[i] = 1;
             }
+        }
+        for (int i = ratings.length - 1; i >= 0; i--) {
+            if (i < ratings.length - 1 && ratings[i] > ratings[i + 1]) {
+                right[i] = right[i + 1] + 1;
+            } else {
+                right[i] = 1;
+            }
+        }
+        for (int i = 0; i < ratings.length; i++) {
+            res += Math.max(left[i], right[i]);
         }
         return res;
     }
