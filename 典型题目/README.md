@@ -3,6 +3,7 @@
 * [设计跳表](#设计跳表)
 * [KMP字符串匹配算法](#KMP字符串匹配算法)
 * [多线程打印ABC](#多线程打印ABC)
+* [约瑟夫杯](#约瑟夫杯)
 
 # 编辑距离
 https://leetcode-cn.com/problems/edit-distance/
@@ -297,5 +298,48 @@ public class ThreadTest implements Runnable {
             }
         }
     }
+}
+```
+
+# 约瑟夫杯
+```java
+import java.util.Scanner;
+
+public class Main {
+	static int out=0;//标记已被淘汰的人数
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		int n=sc.nextInt();
+		int k=sc.nextInt();
+		//将n个人存储在数组中
+		int[]arr=new int[n+1];
+		for (int i = 1; i < arr.length; i++) {arr[i]=i;}
+		//动态变化的索引,用于模拟循环报数
+		int in=1;
+		int ik=1;
+		//当淘汰人数等于n-1时会跳出循环
+		while (out<n-1) {
+			//被置为0的视为已经被淘汰,所以碰到0和碰到非0的操作是不一样的
+			if(arr[in]==0) {
+				//已被淘汰 不需要报数
+				if(in==n)in=1;else in++;
+			}else {
+				if(ik==k) {
+					arr[in]=0;//置为0(淘汰)
+					ik=0;//报数从1开始,因为下面有K++ 所以置0
+					out++;
+				}
+				if(in==n)in=1;else in++;
+				ik++;
+			}
+		}
+		//这时候数组中肯定只剩一个人不为0了,那么这个人的序号就是最后的answer
+		for (int i = 1; i < arr.length; i++) {
+			if(arr[i]!=0) {
+				System.out.println(arr[i]);
+				break;
+			}
+		}
+	}
 }
 ```
